@@ -1,51 +1,3 @@
-<?php require "db.php"; ?>
-<?php
-		$data = $_POST;
-		if(isset($data['do_login']))
-		{
-			$errors = array();
-			$user = R::findOne('user', 'email = ?', array($data['email']));
-			if(trim($data['email']) == '')
-      {
-        $errors[] = 'Введите Email';
-      }
-      if($data['password'] == '')
-      {
-        $errors[] = 'Введите пароль';
-      }  
-      if(empty($errors))
-      {
-        //Все хорошо, все условия выполнены - поля заполнены
-  
-		if ($user)
-		{ 
-		//логин существует
-		if (password_verify($data['password'], $user->password)) {
-		
-		$_SESSION['logged_user'] = $user;
-		//header('Location: /mail.php');
-		} else
-		{
-		$errors[] = 'Неверно введен пароль';
-		}
-			
-		} else
-		{
-		$errors[] = 'Пользователь не найден';
-		}
-		if ( ! empty($errors))
-	    {
-	    echo '<script>alert("'.array_shift($errors).'");</script>';
-	    } 
-	    } 
-    	else
-		{
-        echo '<script>alert("'.array_shift($errors).'");</script>';
-    	}
-		}
-	?>
-<?php if (isset($_SESSION['logged_user'])) : ?>
-	<?php if (isset($_SESSION['logged_user'])) : ?>
 <!DOCTYPE html>
 <html lang="ru">
   <head>
@@ -103,7 +55,6 @@
 </nav>
 </div>
 
-<?php endif; ?>
 
 <!-- Подключаем точку входа --> 
 <script src="js/entry.js" type="module"></script>
