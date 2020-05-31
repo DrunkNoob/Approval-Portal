@@ -1,3 +1,4 @@
+/* eslint-disable linebreak-style */
 import Handlebars from './handlebars.min.js'
 export default {
   render(templateName, data) {

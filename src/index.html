@@ -1,56 +1,85 @@
 <!doctype html>
-<html lang="en" class="h-100">
+<html lang="ru" class="h-100">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
-    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
-    <meta name="generator" content="Jekyll v4.0.1">
-    <title>Sticky Footer Navbar Template · Bootstrap</title>
+    <meta name="author" content="Danil Yakovenko">
+    <title>Портал согласования</title>
   </head>
   <body class="d-flex flex-column h-100">
-    <header>
-  <!-- Fixed navbar -->
-  <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-    <a class="navbar-brand" href="#">Fixed navbar</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarCollapse">
-      <ul class="navbar-nav mr-auto">
-        <li class="nav-item active">
-          <a class="nav-link" href="#">Home1 <span class="sr-only">(current)</span></a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Link</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-        </li>
-      </ul>
-      <form class="form-inline mt-2 mt-md-0">
-        <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+  <div id="body"></div> 
+
+  <!-- authForm -->  
+  <script id="authFormTemplate" type="text/template">
+    <form class="form-signin text-center">
+      <svg class="mb-4 bi bi-check-all  text-success" width="80" height="80" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M8.97 4.97a.75.75 0 0 1 1.071 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L2.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093L8.95 4.992a.252.252 0 0 1 .02-.022zm-.92 5.14l.92.92a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 1 0-1.091-1.028L9.477 9.417l-.485-.486-.943 1.179z" clip-rule="evenodd"/></svg>
+      <h1 class="h3 mb-3 font-weight-normal">Войдите в аккаунт</h1>
+      <label for="inputEmail" class="sr-only">Email</label>
+      <input type="email" id="inputEmail" class="form-control" placeholder="Email адрес" required autofocus>
+      <label for="inputPassword" class="sr-only">Пароль</label>
+      <input type="password" id="inputPassword" class="form-control" placeholder="Пароль" required>
+      <button class="btn btn-lg btn-primary btn-block" type="submit">Войти</button>
+      <p class="mt-5 mb-3 text-muted">© 2020</p>
       </form>
-    </div>
-  </nav>
-</header>
+  </script>
 
-<!-- Begin page content -->
-<main role="main" class="flex-shrink-0">
-  <div class="container">
-
-    <div id="results"></div>
-  </div>
+  <!-- body -->  
+  <script id="bodyTemplate" type="text/template">
+    <header>
+      <!-- Fixed navbar -->
+      <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+        <a class="navbar-brand" href="/#">Портал согласования</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="/#">Главная <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" data-role="nav-newagreement" href="#newagreement">Создать новое согласование</a>
+            </li>
+            <li id="navItemDropdown" class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Пользователи</a>
+              <div id="dropdown-menu" class="dropdown-menu" aria-labelledby="dropdown01">
+                <a class="dropdown-item" data-role="nav-users" href="#users">Просмотр пользователей</a>
+                <a class="dropdown-item" data-role="nav-registration" href="#registration">Регистрация новых пользователей</a>
+              </div>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" data-role="nav-profile" href="#profile">Профиль</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" data-role="nav-about" href="#about"><fount color="#5cb85c"><b>О проекте</b></fount></a>
+            </li>
+          </ul>
+          <form class="form-inline mt-2 mt-md-0">
+            <input class="form-control mr-sm-2" type="text" placeholder="Номер согласования" aria-label="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Найти</button>
+          </form>
+        </div>
+      </nav>
+    </header>
     
-  
-  
+    <!-- Begin page content -->
+    <main role="main" class="flex-shrink-0">
+      <div id="results" class="container"></div>
+    </main>
+
+    <footer class="footer mt-auto py-3">
+      <div class="container">
+        <span class="text-muted">Place sticky footer content here.</span>
+      </div>
+    </footer>
+  </script>
+
+
   <!-- index --> 
   <script id="indexTemplate" type="text/template">
   <div class="row">
-  <div class="col-lg-10 col-lg-offset-1">
-  <div class="block">	
-    
+  <div class="col-lg-offset-1">
     <h1 class="text-center">Реестр согласований:</h1><br>
   <div class="alert alert-info alert-dismissible" role="alert">
     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -72,52 +101,31 @@
           <th>Степень риска</th>
           <th>Статус</th>
           </tr> 
-          
-  
-  
+        
           <div id="content">
-  
-          
-       {{#each result/agreement}}
+         {{#each result/agreement}}
        <tr class="tableSubmit" id="{{id}}"><td>{{ndog}}</td><td>{{dated}}</td><td>{{pdog}}</td><td>{{otdels}}</td><td>{{vfio}}</td><td>{{afio}}</td><td>{{inn}}</td><td>{{risk}}</td><td>{{soglass}}</td></tr>
        {{/each}}
        </div>
         </table>
-  
-  
-  
-  
-  
-  
-  
-        </div>
-        
+</div>
   </form>
   <div class="center-block"></div>
   </div>
   </div>
-  </div>
-  
-  
   </script>
   
-  
-  
+    
   <!-- agreement --> 
   <script id="agreementTemplate" type="text/template">
-  <div class="row">
-  <div class="col-lg-10 col-lg-offset-1">
-  <div class="block">	
+  <div class="col-lg-offset-1">
   <h1 class="text-center">Согласование договора закупки №{{ result/ndog }}</h1>	
   <div class="alert alert-info alert-dismissible" role="alert">
   <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
   <strong>Создатель данного согласования: {{ result/creator }}</strong>
   </div>	
-  
   <div class='alert alert-warning' role='alert'><strong>Внимание!</strong> Вы не сможете скачать PDF до согласования всеми участниками.</div>
   <div class='alert alert-warning' role='alert'><strong>Внимание!</strong><br><ul><li>Данное согласование имеет комментарий.</li><li>Вы не сможете скачать PDF до согласования всеми участниками.</li></ul></div>	
-    
-   
   <form action="dompdf/test.php" method="POST">
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
   <h3><small>Данные о договоре:</small></h3>
@@ -217,112 +225,140 @@
   
   </script>
           
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
+   
+  <!-- New Agreement --> 
+<script id="newagreementTemplate" type="text/template">
+  <div class="col-lg-offset-1">
+    <h1 class="text-center">Процедура по согласованию договоров закупки</h1>	
+      <div class="alert alert-warning alert-dismissible" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <strong>Внимание!</strong> Скачать PDF будет возможно только после согласования со всеми участниками.
+  </div>
+  <form name="sogForm">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+      
+  <h3><small>Данные о договоре:</small></h3>
+  <table class="table">
+    <tr>
+          <td><span>Вид соглашения</span></td>
+          <td><select  name="type" id="typeSog" class="form-control"><option>Разовые закупки</option><option>Рамочные соглашения</option></select></td>
+      </tr>	
+    <tr>
+          <td><span>Категория</span></td>
+          <td><select  name="category" id="categorySog" class="form-control"><option>Закупки для целей монтажа</option><option>Иные закупки</option></select></td>
+      </tr>
+      <tr>
+          <td><span>Ежегодный оборот по договору (RUB)</span></td>
+          <td><input type="number" name="valuationprice" id="valuationPriceSog" class="form-control" value=""></td>
+      </tr>
+    
+      <tr>
+          <td><span>Номер договора</span></td>
+          <td>
+          <div>
+      <div class="input-group">
+        <input type="text" name="ndog" class="form-control" value="">
+        <span class="input-group-btn">
+          <button class="btn btn-default" type="button">Загрузить договор</button>
+        </span>
+      </div> 
+    </div>         	
+            </td>
+      </tr>
+      <tr>
+          <td><span>Дата договора</span></td>
+          <td><input type="date" name="dated" class="form-control" value=""></td>
+      </tr>
+      <tr>
+          <td><span>Предмет договора (описание закупаемых товаров, работ, услуг)</span></td>
+          <td><input type="text" name="pdog" class="form-control" value=""></td>
+      </tr>
+  </table>
+  <br>
+  <h3><small>Данные об ответственных лицах:</small></h3>
+  <table class="table">
+      <tr>
+          <td>Отдел, инициирующий заключение договора</td>
+          <td>
+  <select  name="otdels" class="form-control" value="">
+<option></option>
+  </select>        	
+          </td>
+      </tr>
+      <tr>
+          <td>Владелец договора (ФИО, должность)</td>
+          <td>
+  <select  name="vfio" class="form-control" value="">
+ <option value="{$user->id}"></option>
+  </select>
+  </td>
+      </tr>
+      <tr>
+          <td>Администратор договора (ФИО, должность)</td>
+          <td>
+  <select  name='afio' class='form-control'><option value="{$user->id}">	
+  </option>
+  </select>
+  </td>
+      </tr>
+  </table>
+  <br>
+  <h3><small>Данные о контрагенте:</small></h3>
+  <table class="table">
+      <tr>
+          <td>Сторона договора (наименование, инн или огрн)</td>
+          <td><input type="text" name="inn" class="form-control" value=""></td>
+      </tr>
+      <tr>
+          <td>Проверка контрагента</td>
+          <td><select  name="prov" id="prov" class="form-control"><option value="1">выполнена</option><option value="0">не выполнена</option></select></td>
+      </tr>
+      <tr>
+          <td>Причина не выполнения проверки</td>
+          <td><input id="pprov" type="text" name="pprov" class="form-control" value=""></td>
+      </tr>
+      <tr>
+          <td>Степень риска по контрагенту</td>
+          <td><select  name="risk" class="form-control"><option>низкая</option><option>средняя</option><option>высокая</option></select></td>
+      </tr>
+  </table>
+  <br>
+  
+  <h3><small>Согласующие:</small></h3>
+  <p class="bg-info"><strong>R</strong> – Reviewer (проверяющий), <strong>A</strong> - Approver (утверждающий)</p>
+  
+  
+  <table class="table" id="sog-list">
+      <tr class="sog-item">
+          <td width="120">Статус (R, A*)</td>
+          <td>ФИО (Отдел/Должность)</td>
+          <td width="60"></td>
+      </tr>
+      <tr class="sog-item">
+          <td><select  name="statusu1" id="statusu" class="form-control"><option value="R">R</option><option value="A">A</option></select></td>
+          <td><select  name='sog1' id='sogUsers' class='form-control'>
+<option value="{$user->id}"></option>
+    </select>
+  </td>
+   <td>
+    <button id="deleteButton" type="button" class="deleteButton" disabled><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
+   </td>
+      </tr>
+  
+  </table>
+  <input type="button" id="addApprover" class="btn btn-default" value="Добавить">
+  <br><br><br>
+  
+  <input type="button" id="create"  name="create" class="btn btn-danger btn-block" value="Создать согласование">
+  </div>
+  </form>
+  </script>
+    
   
   <!-- Users --> 
   <script id="usersTemplate" type="text/template">
-  <div class="row">
-  <div class="col-lg-10 col-lg-offset-1">
-  <div class="block">	
-  <h1 class="text-center">Зарегистрированные пользователи</h1>	
+  <div class="col-lg-offset-1">
+   <h1 class="text-center">Зарегистрированные пользователи</h1>	
     <div class="alert alert-warning alert-dismissible" role="alert">
     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
     <strong>Внимание!</strong> Только администраторы могут просматривать всех пользователей.
@@ -338,35 +374,19 @@
           <th>Отдел</th>
           <th>Email</th>
           </tr> <!--ряд с ячейками заголовков-->
-          
-  
     {{#each result/users}}
       <tr><td>{{id}}</td><td>{{secondname}} {{firstname}} {{patronymic}}</td><td>{{role}}</td><td>{{position}}</td><td>{{otdel}}</td><td>{{email}}</td></tr>
     {{/each}}
-  
-  
-  
-  
-  
-  
-  
-  
-  
-          
           </div>
         </table></div>
         <div class="pull-right"><a role="button" class="btn btn-default " href="#registration" >Добавить пользователя</a></div>
   </div>
-  </div>
-  </div>      
   </script>
   
   
   <!-- New User (registration) --> 
   <script id="registrationTemplate" type="text/template">
-  <div class="row">
-  <div class="col-lg-10 col-lg-offset-1">
-  <div class="block">	
+  <div class="col-lg-offset-1">
   <h1 class="text-center">Регистрация новых пользователей</h1>
     <div class="alert alert-warning alert-dismissible" role="alert">
     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -396,23 +416,18 @@
       </form>
   
   </div>
-  </div>
-  </div>
-  
   </script>
   
   
   <!-- Profile --> 
   <script id="profileTemplate" type="text/template">
-  <div class="row">
-  <div class="col-lg-10 col-lg-offset-1">
-  <div class="block">	
+  <div class="col-lg-offset-1">
   <h1 class="text-center">Ваш профиль</h1>	
   <div class="alert alert-warning alert-dismissible" role="alert">
   <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
   <strong>Внимание!</strong> Некоторые параметры доступны только администраторам.
   </div>
-  <form method="POST">
+  <form>
   <h3><small>Общее:</small></h3>
   <table class="table">
       <tr>
@@ -478,16 +493,12 @@
   <button type="submit" name="save" class="btn btn-danger btn-block">Сохранить профиль</button>
   </form>
   </div>
-  </div>
-  </div>      
   </script>
   
   
   <!-- about --> 
   <script id="aboutTemplate" type="text/template">
-  <div class="row">
-  <div class="col-lg-10 col-lg-offset-1">
-  <div class="block">	
+  <div class="col-lg-offset-1">  	
   <h1 class="text-center">О проекте</h1>
   Расказать о проекте: какие бизнес-задачи решает, какие используются инструменты/технологии и тд.
   <br>	
@@ -511,28 +522,7 @@
   <br>	
   <br>	
   </div>
-  </div>
-  </div>	      
   </script>
-  
 
-
-
-
-
-
-
-
-
-
-
-
-  </div>
-</main>
-
-<footer class="footer mt-auto py-3">
-  <div class="container">
-    <span class="text-muted">Footer.</span>
-  </div>
-</footer>
+</body>
 </html>
