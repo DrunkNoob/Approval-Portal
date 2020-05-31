@@ -1,3 +1,4 @@
+/* eslint-disable linebreak-style */
 import View from '../view.js'
 
 const resultsNode = document.querySelector('#results')
