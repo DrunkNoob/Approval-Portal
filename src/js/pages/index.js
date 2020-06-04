@@ -1,20 +1,7 @@
 /* eslint-disable linebreak-style */
-import View from '../view.js'
+import View from '../View.js'
 
 
-function tableClick() {
-  // eslint-disable-next-line no-invalid-this
-  const me = this.id
-  console.log(me)
-  location.hash = 'agreement/' + me
-}
-
-const tableItem = document.querySelectorAll('.tableSubmit')
-tableItem.forEach(function(elem) {
-  elem.addEventListener('click', tableClick)
-})
-
-const resultsNode = document.querySelector('#results')
 let items = []
 
 export default {
@@ -22,9 +9,18 @@ export default {
     items = index
   },
 
-  render() {
+  render(resultsNode) {
     resultsNode.innerHTML = View.render('index', items)
+
+    const tableItem = document.querySelectorAll('.tableSubmit')
+    tableItem.forEach(function(elem) {
+      elem.addEventListener('click', tableClick)
+    })
   }
 }
-// const resultsNode = document.querySelector('#results')
-// resultsNode.innerHTML = View.render('index', index)
+
+function tableClick() {
+  // eslint-disable-next-line no-invalid-this
+  const me = this.id
+  location.hash = 'agreement/' + me
+}

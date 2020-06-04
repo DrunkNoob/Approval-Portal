@@ -1,10 +1,10 @@
 /* eslint-disable linebreak-style */
-import Controller from './controller.js'
-// принимаем из entry хешь(действие) и обрабатываем
+import Controller from './Controller.js'
+
+// принимаем из entry хешь и обрабатываем
 function getRouteInfo() {
-// отрезаем решетку из хеша
   const hash = location.hash ? location.hash.slice(1) : 'index'
-  console.log('hash: ', location.hash)
+  console.log('hash: ', hash)
   const [name, id] = hash.split('/')
 
   return {name, params: {id}}

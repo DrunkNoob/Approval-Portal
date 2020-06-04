@@ -1,70 +1,58 @@
 /* eslint-disable linebreak-style */
-import Model from './model.js'
-import View from './view.js'
-// import agreementPage from './pages/agreement.js'
-// import indexPage from './pages/index.js'
+import Model from './Model.js'
+import View from './View.js'
+import indexPage from './pages/index.js'
+import agreementPage from './pages/agreement.js'
+import usersPage from './pages/users.js'
+import registrationPage from './pages/registration.js'
+import profilePage from './pages/profile.js'
+import newagreementPage from './pages/newagreement.js'
+import authPage from './pages/auth.js'
 
 
 // принимаем из router действие и обрабатываем
 export default {
   async indexRoute() {
-    // const index = await Model.ajaxDown('main.php')
-    //     .then(value => {
-    //       return value
-    //     })
-    //     .catch(error=>console.log('Error: ', error))
-    // indexPage.setData(index)
-    // indexPage.render()
-    const index = Model.indexC()
-    const resultsNode = document.querySelector('#results')
-    resultsNode.innerHTML = View.render('index', index)
+    const index = await Model.fetch('index')
+
+    indexPage.setData(index)
+    indexPage.render(document.getElementById('results'))
   },
   async agreementRoute(params) {
-    // console.log(params.id)
+    const agreement = await Model.fetch('agreement')
 
-    // const agreement = await Model.ajaxDown('agreement.php', params.id)
-    //     .then(value => {
-    //       return value
-    //     })
-    //     .catch(error=>console.log('Error: ', error))
-
-    // console.log(agreement)
-
-    const agreement = Model.agreementC()
-    const resultsNode = document.querySelector('#results')
-    resultsNode.innerHTML = View.render('agreement', agreement)
-    // agreementPage.setData(agreement.items)
-    // agreementPage.render()
+    agreementPage.setData(agreement)
+    agreementPage.render(document.getElementById('results'))
   },
   async usersRoute() {
-    // const users = await Model.ajaxDown('users.php')
-    //     .then(value => {
-    //       return value
-    //     })
-    //     .catch(error=>console.log('Error: ', error))
+    const users = await Model.fetch('users')
 
-    const users = Model.usersC()
-
-    const resultsNode = document.querySelector('#results')
-    resultsNode.innerHTML = View.render('users', users)
+    usersPage.setData(users)
+    usersPage.render(document.getElementById('results'))
   },
 
   async registrationRoute() {
-    const resultsNode = document.querySelector('#results')
-    resultsNode.innerHTML = View.render('registration')
+    registrationPage.render(document.getElementById('results'))
   },
 
-
-  async aboutRoute() {
-    const resultsNode = document.querySelector('#results')
+  aboutRoute() {
+    const resultsNode = document.getElementById('results')
     resultsNode.innerHTML = View.render('about')
   },
+
   async profileRoute() {
-    const resultsNode = document.querySelector('#results')
-    resultsNode.innerHTML = View.render('profile')
+    const profile = {'1': 1} // заглушка
+    profilePage.setData(profile)
+    profilePage.render(document.getElementById('results'))
   },
+
   async newagreementRoute() {
-    const resultsNode = document.querySelector('#results')
-    resultsNode.innerHTML = View.render('newagreement')
+    const newagreement = {'1': 1} // заглушка
+    newagreementPage.setData(newagreement)
+    newagreementPage.render(document.getElementById('results'))
+  },
+
+  async authRoute() {
+    authPage.render(document.getElementById('body'))
   }
 }

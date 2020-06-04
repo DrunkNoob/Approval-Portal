@@ -1,39 +1,26 @@
 import '../css/bootstrap.min.css'
 import '../css/main.css'
-// import Model from './model.js'
-import View from './view.js'
-import Router from './router.js'
+import View from './View.js'
+import Router from './Router.js'
+import Model from './Model'
 
 
 (async () => {
   try {
-    // загружаем главную страницу
-    const auth = false
+    // Проверяем залогинился пользователь или нет
+    const notauthorized = false
 
-    const resultsNode = document.querySelector('#body')
-    if (auth===true) {
+    if (notauthorized===false) {
+      const resultsNode = document.getElementById('body')
       resultsNode.innerHTML = View.render('body')
-      Router.init('index')
     } else {
-      resultsNode.innerHTML = View.render('authForm')
+      location.hash = 'auth'
     }
+    Model.fetch()
 
-
-    const tableItem = document.querySelectorAll('.tableSubmit')
-    tableItem.forEach(function(elem) {
-      elem.addEventListener('click', tableClick)
-    })
-
-    // eslint-disable-next-line no-inner-declarations
-    function tableClick() {
-      // eslint-disable-next-line no-invalid-this
-      const me = this.id
-      location.hash = 'agreement/' + me
-    }
-
-    // Router.init('index')
-  } catch (e) {
-    console.error(e)
-    alert('Ошибка: ' + e.message)
+    Router.init()
+  } catch (error) {
+    console.error(error)
+    alert('Ошибка: ' + error.message)
   }
 })()
