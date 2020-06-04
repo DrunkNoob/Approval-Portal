@@ -1,0 +1,77 @@
+{
+    "ok": true,
+    "result": {
+      "users": [
+        {
+          "role": "Администратор",
+          "id": "6",
+          "secondname": "Яковенко",
+          "firstname": "Данил",
+          "patronymic": "Юрьевич",
+          "position": "Менеджер по продажам",
+          "otdel": "Карательный",
+          "email": "danil.yakovenko@mail.com"
+        },
+        {
+          "role": "Пользователь",
+          "id": "7",
+          "secondname": "Иванов",
+          "firstname": "Владимир",
+          "patronymic": "Игоревич",
+          "position": "Sourcing Specialist",
+          "otdel": "Sourcing",
+          "email": "vladimir.ivanov@mail.com"
+        },
+        {
+          "role": "Пользователь",
+          "id": "8",
+          "secondname": "Петрова",
+          "firstname": "Анастасия",
+          "patronymic": "Юрьевна",
+          "position": "Sourcing Specialist",
+          "otdel": "Sourcing",
+          "email": "anastasia.petrova@mail.com"
+        },
+        {
+          "role": "Пользователь",
+          "id": "9",
+          "secondname": "Иванов",
+          "firstname": "Иван",
+          "patronymic": "Иванович",
+          "position": "Кладовщик",
+          "otdel": "Sourcing",
+          "email": "ivanovivan@mail.ru"
+        },
+        {
+          "role": "Пользователь",
+          "id": "10",
+          "secondname": "Петров",
+          "firstname": "Петр",
+          "patronymic": "Петрович",
+          "position": "Менеджер по продажам",
+          "otdel": "Отдел продаж",
+          "email": "petrovpetr@yandex.com"
+        },
+        {
+          "role": "Пользователь",
+          "id": "11",
+          "secondname": "Алексеев",
+          "firstname": "Алексей",
+          "patronymic": "Алексеевич",
+          "position": "Каратель",
+          "otdel": "Карательный",
+          "email": "alexeyale@yandex.com"
+        },
+        {
+          "role": "Пользователь",
+          "id": "12",
+          "secondname": "Странный",
+          "firstname": "Сергей",
+          "patronymic": "Сергеевич",
+          "position": "Экзорцист",
+          "otdel": "Карательный",
+          "email": "eererer@dsdsd.rt"
+        }
+      ]
+    }
+  }

@@ -1,14 +1,13 @@
-import View from '../view.js'
+import View from '../View.js'
 
-const resultsNode = document.querySelector('#results')
 let items = []
 
 export default {
-  setData(newItems) {
-    items = newItems
+  setData(agreement) {
+    items = agreement
   },
 
-  render() {
-    resultsNode.innerHTML = View.render('agreement', {list: items})
+  render(resultsNode) {
+    resultsNode.innerHTML = View.render('agreement', items)
   }
 }

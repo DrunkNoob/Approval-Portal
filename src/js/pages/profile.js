@@ -3,11 +3,11 @@ import View from '../View.js'
 let items = []
 
 export default {
-  setData(user) {
-    items = user
+  setData(profile) {
+    items = profile
   },
 
   render(resultsNode) {
-    resultsNode.innerHTML = View.render('users', items)
+    resultsNode.innerHTML = View.render('profile', items)
   }
 }
