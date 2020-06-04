@@ -1,0 +1,55 @@
+{
+    "ok": false,
+    "result": {
+      "creator": "Яковенко Данил Юрьевич",
+      "type": "Разовые закупки",
+      "category": "Закупки для целей монтажа",
+      "valuationprice": "5245",
+      "ndog": "252",
+      "dated": "2020-01-09",
+      "pdog": "Интернет в дом",
+      "otdels": "Карательный",
+      "vfio": {
+        "secondname": "Яковенко",
+        "firstname": "Данил",
+        "patronymic": "Юрьевич",
+        "position": "Менеджер по продажам"
+      },
+      "afio": {
+        "secondname": "Иванов",
+        "firstname": "Иван",
+        "patronymic": "Иванович",
+        "position": "Кладовщик"
+      },
+      "inn": "ООО СкайНет",
+      "prov": "не выполнена",
+      "pprov": null,
+      "risk": "низкая",
+      "reviewer": [
+        {
+          "statusu": "R",
+          "secondname": "Яковенко",
+          "firstname": "Данил",
+          "patronymic": "Юрьевич",
+          "otdel": "Карательный",
+          "position": "Менеджер по продажам"
+        },
+        {
+          "statusu": "R",
+          "secondname": "Яковенко",
+          "firstname": "Данил",
+          "patronymic": "Юрьевич",
+          "otdel": "Карательный",
+          "position": "Менеджер по продажам"
+        },
+        {
+          "statusu": "R",
+          "secondname": "Яковенко",
+          "firstname": "Данил",
+          "patronymic": "Юрьевич",
+          "otdel": "Карательный",
+          "position": "Менеджер по продажам"
+        }
+      ]
+    }
+  }
