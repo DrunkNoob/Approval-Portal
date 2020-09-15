@@ -1,5 +1,6 @@
 {
-    "ok": false,
+    "status": "ok",
+    "error": null,
     "result": {
       "creator": "Яковенко Данил Юрьевич",
       "type": "Разовые закупки",

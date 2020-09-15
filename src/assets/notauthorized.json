@@ -1,4 +1,4 @@
 {
-    "ok": false,
-    "result": "notauthorized"
+  "status": "ok",
+    "error": "notauthorized"
   }

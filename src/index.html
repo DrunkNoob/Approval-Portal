@@ -42,7 +42,7 @@
               <a class="nav-link" data-role="nav-newagreement" href="#newagreement">Создать новое согласование</a>
             </li>
             <li id="navItemDropdown" class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Пользователи</a>
+              <a class="nav-link dropdown-toggle" id="dropdown01" data-toggle="dropdown" aria-haspopup="true">Пользователи</a>
               <div id="dropdown-menu" class="dropdown-menu" aria-labelledby="dropdown01">
                 <a class="dropdown-item" data-role="nav-users" href="#users">Просмотр пользователей</a>
                 <a class="dropdown-item" data-role="nav-registration" href="#registration">Регистрация новых пользователей</a>
@@ -52,12 +52,12 @@
               <a class="nav-link" data-role="nav-profile" href="#profile">Профиль</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" data-role="nav-about" href="#about"><fount color="#5cb85c"><b>О проекте</b></fount></a>
+              <a class="nav-link" data-role="nav-about" href="#about"><b>О проекте</b></a>
             </li>
           </ul>
-          <form class="form-inline mt-2 mt-md-0">
-            <input class="form-control mr-sm-2" type="text" placeholder="Номер согласования" aria-label="Search">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Найти</button>
+          <form id="formSearchAgreement" class="form-inline mt-2 mt-md-0">
+            <input id="inputSearchAgreement" class="form-control mr-sm-2" type="text" placeholder="ID согласования" aria-label="Search">
+            <button id="btnSearchAgreement" class="btn btn-outline-success my-2 my-sm-0" type="submit" disabled>Найти</button>
           </form>
         </div>
       </nav>
@@ -234,22 +234,22 @@
     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
     <strong>Внимание!</strong> Скачать PDF будет возможно только после согласования со всеми участниками.
   </div>
-  <form name="sogForm">
+  <form id="sogForm">
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
       
   <h3><small>Данные о договоре:</small></h3>
   <table class="table">
     <tr>
           <td><span>Вид соглашения</span></td>
-          <td><select  name="type" id="typeSog" class="form-control"><option>Разовые закупки</option><option>Рамочные соглашения</option></select></td>
+          <td><select id="typeSog" class="form-control"><option value="one">Разовая закупка</option><option value="frame">Рамочное соглашение</option></select></td>
       </tr>	
     <tr>
           <td><span>Категория</span></td>
-          <td><select  name="category" id="categorySog" class="form-control"><option>Закупки для целей монтажа</option><option>Иные закупки</option></select></td>
+          <td><select id="categorySog" class="form-control"><option value="installation">Закупки для целей монтажа</option><option value="other">Иные закупки</option></select></td>
       </tr>
       <tr>
           <td><span>Ежегодный оборот по договору (RUB)</span></td>
-          <td><input type="number" name="valuationprice" id="valuationPriceSog" class="form-control" value=""></td>
+          <td><input type="number" id="valuationPriceSog" class="form-control" value="{{ result/valuationprice }}" required></td>
       </tr>
     
       <tr>
@@ -257,9 +257,9 @@
           <td>
           <div>
       <div class="input-group">
-        <input type="text" name="ndog" class="form-control" value="">
+        <input type="text" id="ndog" class="form-control" value="{{ result/ndog }}" required>
         <span class="input-group-btn">
-          <button class="btn btn-default" type="button">Загрузить договор</button>
+          <button class="btn btn-outline-info" type="button">Загрузить договор</button>
         </span>
       </div> 
     </div>         	
@@ -267,11 +267,11 @@
       </tr>
       <tr>
           <td><span>Дата договора</span></td>
-          <td><input type="date" name="dated" class="form-control" value=""></td>
+          <td><input id="dated" type="date" class="form-control" value="{{ result/dated }}" required></td>
       </tr>
       <tr>
           <td><span>Предмет договора (описание закупаемых товаров, работ, услуг)</span></td>
-          <td><input type="text" name="pdog" class="form-control" value=""></td>
+          <td><input id="pdog" type="text" class="form-control" value="{{ result/pdog }}" required></td>
       </tr>
   </table>
   <br>
@@ -280,24 +280,30 @@
       <tr>
           <td>Отдел, инициирующий заключение договора</td>
           <td>
-  <select  name="otdels" class="form-control" value="">
-<option></option>
+  <select  id="otdels" class="form-control">
+    {{#each result/otdels}}
+    <option value="{{this}}">{{this}}</option>
+    {{/each}}
   </select>        	
           </td>
       </tr>
       <tr>
           <td>Владелец договора (ФИО, должность)</td>
           <td>
-  <select  name="vfio" class="form-control" value="">
- <option value="{$user->id}"></option>
+  <select  id="vfio" class="form-control">
+    {{#each result/users}}
+    <option value="{{id}}">{{user}}</option>
+    {{/each}}
   </select>
   </td>
       </tr>
       <tr>
           <td>Администратор договора (ФИО, должность)</td>
           <td>
-  <select  name='afio' class='form-control'><option value="{$user->id}">	
-  </option>
+  <select  id='afio' class='form-control'>
+    {{#each result/users}}
+    <option value="{{id}}">{{user}}</option>
+    {{/each}}
   </select>
   </td>
       </tr>
@@ -307,19 +313,19 @@
   <table class="table">
       <tr>
           <td>Сторона договора (наименование, инн или огрн)</td>
-          <td><input type="text" name="inn" class="form-control" value=""></td>
+          <td><input id="inn" type="text" class="form-control" value="{{ result/inn }}" required></td>
       </tr>
-      <tr>
+      <tr class="table-danger">
           <td>Проверка контрагента</td>
-          <td><select  name="prov" id="prov" class="form-control"><option value="1">выполнена</option><option value="0">не выполнена</option></select></td>
+          <td><select id="partyVer" class="form-control"><option value="false">не выполнена</option><option value="true">выполнена</option></select></td>
       </tr>
-      <tr>
+      <tr class="table-danger">
           <td>Причина не выполнения проверки</td>
-          <td><input id="pprov" type="text" name="pprov" class="form-control" value=""></td>
+          <td><input id="partyVerCom" type="text" class="form-control" value="{{ result/partyvercom }}" required></td>
       </tr>
-      <tr>
+      <tr class="table-danger">
           <td>Степень риска по контрагенту</td>
-          <td><select  name="risk" class="form-control"><option>низкая</option><option>средняя</option><option>высокая</option></select></td>
+          <td><select  id="risk" class="form-control"><option value="high">высокая</option><option value="medium">средняя</option><option value="low">низкая</option></select></td>
       </tr>
   </table>
   <br>
@@ -328,28 +334,32 @@
   <p class="bg-info"><strong>R</strong> – Reviewer (проверяющий), <strong>A</strong> - Approver (утверждающий)</p>
   
   
-  <table class="table" id="sog-list">
-      <tr class="sog-item">
+  <table class="table" id="sogList">
+      <tr>
           <td width="120">Статус (R, A*)</td>
           <td>ФИО (Отдел/Должность)</td>
           <td width="60"></td>
       </tr>
-      <tr class="sog-item">
+      <tr id="sog-item">
           <td><select  name="statusu1" id="statusu" class="form-control"><option value="R">R</option><option value="A">A</option></select></td>
           <td><select  name='sog1' id='sogUsers' class='form-control'>
-<option value="{$user->id}"></option>
+            {{#each result/users}}
+            <option value="{{id}}">{{user}}</option>
+            {{/each}}
     </select>
   </td>
    <td>
-    <button id="deleteButton" type="button" class="deleteButton" disabled><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
+    <button id="del-approver" type="button" class="btn btn-outline-danger" disabled><svg class="bi bi-trash" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+      <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+      <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+    </svg></button>
    </td>
       </tr>
   
   </table>
-  <input type="button" id="addApprover" class="btn btn-default" value="Добавить">
+  <input id="add-approver" type="button" class="btn btn-outline-secondary" value="Добавить">
   <br><br><br>
-  
-  <input type="button" id="create"  name="create" class="btn btn-danger btn-block" value="Создать согласование">
+  <button id="create" class="btn btn-danger btn-block" type="submit">Создать согласование</button>
   </div>
   </form>
   </script>

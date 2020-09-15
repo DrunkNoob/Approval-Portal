@@ -47,7 +47,7 @@ export default {
   },
 
   async newagreementRoute() {
-    const newagreement = {'1': 1} // заглушка
+    const newagreement = await Model.fetch('newagreement')
     newagreementPage.setData(newagreement)
     newagreementPage.render(document.getElementById('results'))
   },
