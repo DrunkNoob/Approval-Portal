@@ -16,6 +16,14 @@ code {
   font-size: 80%;
 }
 
+.invalid-feed {
+  color: red;
+  display: none;
+}
+
+.invalid-feed.on {
+  display: block;
+}
 
 /* Забрал из шаблона
 -------------------------------------------------- */

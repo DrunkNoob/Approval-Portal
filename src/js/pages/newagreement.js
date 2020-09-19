@@ -1,5 +1,5 @@
 /* eslint-disable max-len */
-import View from '../View.js'
+import View from '../view.js'
 import {isValid} from '../helpers.js'
 // import {createElement} from '../helpers/js'
 let items = []
@@ -80,7 +80,6 @@ function pageScript() {
       partyVer.parentNode.parentNode.classList.add('table-success')
       partyVerCom.parentNode.parentNode.classList.add('table-dark')
       partyVerCom.parentNode.parentNode.classList.remove('table-danger')
-      // const party = true
     } else {
       partyVerCom.disabled = false
       partyVerCom.required = true
@@ -116,26 +115,8 @@ function pageScript() {
     }
   })
 
-  // была нажата кнопка удалить согласующего
-  // delBtnApprover.addEventListener('click', () => {
-  //   console.log('была нажата кнопка удалить согласующего')
-  // })
-
-  // function bind() {
-  //   const delBtnApprover = sogForm.querySelectorAll('#del-approver')
-  //   delBtnApprover.forEach(function(elem) {
-  //     elem.addEventListener('click', e => {
-  //       console.dir(e.target.parentNode)
-  //       console.dir(e.target.parentElement)
-  //     })
-  //   })
-  // }
-
   // была нажата кнопка добавить согласующего
   addBtnApprover.addEventListener('click', addApproverItem)
-
-  // sogList.forEach(item => bindEvents(item))
-  // bind()
 
   // Отслеживание отправки формы
   sogForm.addEventListener('submit', e => {

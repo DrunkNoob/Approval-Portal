@@ -1,5 +1,5 @@
 /* eslint-disable linebreak-style */
-import Controller from './Controller.js'
+import Controller from './controller.js'
 
 // принимаем из entry хешь и обрабатываем
 function getRouteInfo() {

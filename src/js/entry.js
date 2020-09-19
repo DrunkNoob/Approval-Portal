@@ -1,8 +1,8 @@
 /* eslint-disable max-len */
 import '../css/bootstrap.min.css'
 import '../css/main.css'
-import View from './View.js'
-import Router from './Router.js'
+import View from './view.js'
+import Router from './router.js'
 import Model from './model.js'
 import {isValid} from './helpers'
 
@@ -52,7 +52,6 @@ function pageScript() {
 }
 
 export function authHandler(value) {
-  console.log(value)
   if (value=='false') {
     const resultsNode = document.getElementById('body')
     resultsNode.innerHTML = View.render('body')
