@@ -33,7 +33,9 @@
           "firstname": "Данил",
           "patronymic": "Юрьевич",
           "otdel": "Карательный",
-          "position": "Менеджер по продажам"
+          "position": "Менеджер по продажам",
+          "status": true,
+          "comment": "dgdgdgdgdgd"
         },
         {
           "statusu": "R",
@@ -41,7 +43,9 @@
           "firstname": "Данил",
           "patronymic": "Юрьевич",
           "otdel": "Карательный",
-          "position": "Менеджер по продажам"
+          "position": "Менеджер по продажам",
+          "status": false,
+          "comment": "fdfdfdfdfdfdfdfdfdfdf dfdfdfdfdfd fdf fdfdfd fd fd fdf d fd fd fdf dfdfwrrh"
         },
         {
           "statusu": "R",
@@ -49,7 +53,9 @@
           "firstname": "Данил",
           "patronymic": "Юрьевич",
           "otdel": "Карательный",
-          "position": "Менеджер по продажам"
+          "position": "Менеджер по продажам",
+          "status": true,
+          "comment": null
         }
       ]
     }

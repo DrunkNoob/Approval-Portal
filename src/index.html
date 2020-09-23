@@ -126,7 +126,7 @@
   </div>	
   <div class='alert alert-warning' role='alert'><strong>Внимание!</strong> Вы не сможете скачать PDF до согласования всеми участниками.</div>
   <div class='alert alert-warning' role='alert'><strong>Внимание!</strong><br><ul><li>Данное согласование имеет комментарий.</li><li>Вы не сможете скачать PDF до согласования всеми участниками.</li></ul></div>	
-  <form action="dompdf/test.php" method="POST">
+  <form id="agreement-form">
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
   <h3><small>Данные о договоре:</small></h3>
   <table class="table">
@@ -211,18 +211,14 @@
   <h3><small>Согласующие:</small></h3>
   <p class="bg-info"><strong>R</strong> – Reviewer (проверяющий), <strong>A</strong> - Approver (утверждающий)</p>
   <div class="table-responsive">
-  <table class="table table-striped  table-condensed">
+  <table class="table table-striped  table-condensed" id="reviewer-table">
       <tr>
           <td width="60">Статус (R, A*)</td>
           <td>ФИО (Отдел/Должность)</td>
                   <td>Статус согласования</td>
           <td>Комментарий</td>
       </tr>
-  
-      {{#each result/reviewer}}
-      <tr><td><label>{{statusu}}</label></td><td>{{secondname}} {{firstname}} {{patronymic}} ({{otdel}}/{{position}})</td><td>{{firstname}}</td><td>{{otdel}}</td></tr>
-    {{/each}}
-  
+    </table>
   </script>
           
    
