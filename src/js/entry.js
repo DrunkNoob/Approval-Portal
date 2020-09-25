@@ -4,7 +4,7 @@ import '../css/main.css'
 import View from './view.js'
 import Router from './router.js'
 import Model from './model.js'
-import {isValid} from './helpers'
+import {isValid} from './utils.js'
 
 
 (async () => {

@@ -1,5 +1,5 @@
 /* eslint-disable max-len */
-import {isValid} from '../helpers.js'
+import {isValid} from '../utils.js'
 /* eslint-disable no-invalid-this */
 import View from '../view.js'
 

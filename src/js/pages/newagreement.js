@@ -1,6 +1,6 @@
 /* eslint-disable max-len */
 import View from '../view.js'
-import {isValid} from '../helpers.js'
+import {isValid} from '../utils.js'
 // import {createElement} from '../helpers/js'
 let items = []
 let fetch = {}
