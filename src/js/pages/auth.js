@@ -1,7 +1,8 @@
 /* eslint-disable no-invalid-this */
 /* eslint-disable linebreak-style */
-import View from '../View.js'
+import View from '../view.js'
 
+let fetch = {}
 
 export default {
   render(resultsNode) {
@@ -16,6 +17,10 @@ function authFormHandler(event) {
   event.preventDefault()
   const email = this.querySelector('#inputEmail').value
   const password = this.querySelector('#inputPassword').value
-  console.log('Email: ', email)
-  console.log('Password: ', password)
+  fetch = {
+    email,
+    password
+  }
+
+  console.log(fetch)
 }

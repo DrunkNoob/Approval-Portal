@@ -1,0 +1,27 @@
+{
+    "status": "ok",
+    "error": null,
+    "result": {
+      "firstname": "Данил",
+      "secondname": "Яковенко",
+      "patronymic": "Юрьевич",
+      "position": "Менеджер по продажам",
+      "positions": [
+        "Менеджер по продажам",
+        "Sourcing Specialist",
+        "Кладовщик",
+        "Каратель",
+        "Экзорцист"
+      ],
+      "otdel": "Sourcing",
+      "otdels": [
+        "Карательный",
+        "Sourcing",
+        "Отдел продаж"
+    ],
+      "email": "example@gmail.ru",
+      "id": 6,
+      "accessLevel": 1,
+      "numberOfApprovals":724
+    }
+  }

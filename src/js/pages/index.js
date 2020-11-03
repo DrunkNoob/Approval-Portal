@@ -1,5 +1,5 @@
 /* eslint-disable linebreak-style */
-import View from '../View.js'
+import View from '../view.js'
 
 
 let items = []

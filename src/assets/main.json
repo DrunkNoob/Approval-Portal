@@ -1,0 +1,9 @@
+{
+    "status": "ok",
+    "error": null,
+    "result": {
+      "loginUser": "Тимур Владимирович Рыба",
+      "idUser": 88,
+      "accessLevel": 1
+    }
+}

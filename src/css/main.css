@@ -16,6 +16,14 @@ code {
   font-size: 80%;
 }
 
+.invalid-feed {
+  color: red;
+  display: none;
+}
+
+.invalid-feed.on {
+  display: block;
+}
 
 /* Забрал из шаблона
 -------------------------------------------------- */
@@ -72,3 +80,74 @@ code {
 
 
 
+
+/* Modal
+-------------------------------------------------- */
+.modalBase {
+  color: black;
+}
+
+.modalBase.show .modal-overlay,
+.modalBase.show .modal-window {
+  opacity: 1;
+  z-index: 1000;
+}
+
+.modalBase.hide .modal-overlay,
+.modalBase.hide .modal-window {
+  opacity: 1;
+  z-index: 1000;
+}
+
+.modalBase.show .modal-window {
+  transform: translateY(100px);
+}
+
+.modalBase.show .modal-overlay {
+  background: rgba(0, 0, 0, .4);
+}
+
+.modalBase.hide .modal-window {
+  transform: translateY(-200px);
+}
+
+.modalBase.hide .modal-overlay {
+  background: rgba(0, 0, 0, 0);
+}
+
+.modal-overlay, .modal-window {
+opacity: 0;
+z-index: -1;
+}
+
+.modal-overlay {
+  position: fixed;
+  padding: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0);
+  transition: background .2s ease-in;
+}
+
+.modal-window {
+  width: 600px;
+  border-radius: 5px;
+  background: #fff;
+  margin: 0 auto;
+  transform: translateY(-200px);
+  transition: transform .2s ease-in;
+}
+
+.disable-scroll {
+	position: relative;
+	overflow: hidden;
+	height: 100vh;
+	position: fixed;
+	left: 0;
+	top: 0;
+	width: 100%;
+}
+/* Modal
+-------------------------------------------------- */

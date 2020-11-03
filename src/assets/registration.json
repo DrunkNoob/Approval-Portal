@@ -1,0 +1,18 @@
+{
+    "status": "ok",
+    "error": null,
+    "result": {
+      "positions": [
+        "Менеджер по продажам",
+        "Sourcing Specialist",
+        "Кладовщик",
+        "Каратель",
+        "Экзорцист"
+      ],
+      "otdels": [
+        "Карательный",
+        "Sourcing",
+        "Отдел продаж"
+    ]
+    }
+  }

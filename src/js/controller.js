@@ -1,6 +1,6 @@
 /* eslint-disable linebreak-style */
-import Model from './Model.js'
-import View from './View.js'
+import Model from './model.js'
+import View from './view.js'
 import indexPage from './pages/index.js'
 import agreementPage from './pages/agreement.js'
 import usersPage from './pages/users.js'
@@ -32,6 +32,8 @@ export default {
   },
 
   async registrationRoute() {
+    const registration = await Model.fetch('registration')
+    registrationPage.setData(registration)
     registrationPage.render(document.getElementById('results'))
   },
 
@@ -41,13 +43,13 @@ export default {
   },
 
   async profileRoute() {
-    const profile = {'1': 1} // заглушка
+    const profile = await Model.fetch('profile')
     profilePage.setData(profile)
     profilePage.render(document.getElementById('results'))
   },
 
   async newagreementRoute() {
-    const newagreement = {'1': 1} // заглушка
+    const newagreement = await Model.fetch('newagreement')
     newagreementPage.setData(newagreement)
     newagreementPage.render(document.getElementById('results'))
   },

@@ -8,6 +8,7 @@
     <title>Портал согласования</title>
   </head>
   <body class="d-flex flex-column h-100">
+
   <div id="body"></div> 
 
   <!-- authForm -->  
@@ -42,7 +43,7 @@
               <a class="nav-link" data-role="nav-newagreement" href="#newagreement">Создать новое согласование</a>
             </li>
             <li id="navItemDropdown" class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Пользователи</a>
+              <a class="nav-link dropdown-toggle" id="dropdown01" data-toggle="dropdown" aria-haspopup="true">Пользователи</a>
               <div id="dropdown-menu" class="dropdown-menu" aria-labelledby="dropdown01">
                 <a class="dropdown-item" data-role="nav-users" href="#users">Просмотр пользователей</a>
                 <a class="dropdown-item" data-role="nav-registration" href="#registration">Регистрация новых пользователей</a>
@@ -52,12 +53,12 @@
               <a class="nav-link" data-role="nav-profile" href="#profile">Профиль</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" data-role="nav-about" href="#about"><fount color="#5cb85c"><b>О проекте</b></fount></a>
+              <a class="nav-link" data-role="nav-about" href="#about"><b>О проекте</b></a>
             </li>
           </ul>
-          <form class="form-inline mt-2 mt-md-0">
-            <input class="form-control mr-sm-2" type="text" placeholder="Номер согласования" aria-label="Search">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Найти</button>
+          <form id="formSearchAgreement" class="form-inline mt-2 mt-md-0">
+            <input id="inputSearchAgreement" class="form-control mr-sm-2" type="text" placeholder="ID согласования" aria-label="Search">
+            <button id="btnSearchAgreement" class="btn btn-outline-success my-2 my-sm-0" type="submit" disabled>Найти</button>
           </form>
         </div>
       </nav>
@@ -126,7 +127,7 @@
   </div>	
   <div class='alert alert-warning' role='alert'><strong>Внимание!</strong> Вы не сможете скачать PDF до согласования всеми участниками.</div>
   <div class='alert alert-warning' role='alert'><strong>Внимание!</strong><br><ul><li>Данное согласование имеет комментарий.</li><li>Вы не сможете скачать PDF до согласования всеми участниками.</li></ul></div>	
-  <form action="dompdf/test.php" method="POST">
+  <form id="agreement-form">
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
   <h3><small>Данные о договоре:</small></h3>
   <table class="table">
@@ -149,7 +150,7 @@
       <div class="input-group">
         <input name="ndog" type="label" class="form-control" placeholder="{{ result/ndog }}" disabled="disabled">
         <div class="input-group-btn">
-          <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Посмотреть договор <span class="caret"></span></button>
+          <button type="button" class="btn btn-outline-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Посмотреть договор <span class="caret"></span></button>
           <ul class="dropdown-menu dropdown-menu-right">
             <li><a href="#">Последняя верссия</a></li>
             <li><a href="#">Первая версия</a></li>
@@ -211,18 +212,14 @@
   <h3><small>Согласующие:</small></h3>
   <p class="bg-info"><strong>R</strong> – Reviewer (проверяющий), <strong>A</strong> - Approver (утверждающий)</p>
   <div class="table-responsive">
-  <table class="table table-striped  table-condensed">
+  <table class="table table-striped  table-condensed" id="reviewer-table">
       <tr>
           <td width="60">Статус (R, A*)</td>
           <td>ФИО (Отдел/Должность)</td>
                   <td>Статус согласования</td>
           <td>Комментарий</td>
       </tr>
-  
-      {{#each result/reviewer}}
-      <tr><td><label>{{statusu}}</label></td><td>{{secondname}} {{firstname}} {{patronymic}} ({{otdel}}/{{position}})</td><td>{{firstname}}</td><td>{{otdel}}</td></tr>
-    {{/each}}
-  
+    </table>
   </script>
           
    
@@ -234,22 +231,22 @@
     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
     <strong>Внимание!</strong> Скачать PDF будет возможно только после согласования со всеми участниками.
   </div>
-  <form name="sogForm">
+  <form id="sogForm">
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
       
   <h3><small>Данные о договоре:</small></h3>
   <table class="table">
     <tr>
           <td><span>Вид соглашения</span></td>
-          <td><select  name="type" id="typeSog" class="form-control"><option>Разовые закупки</option><option>Рамочные соглашения</option></select></td>
+          <td><select id="typeSog" class="form-control"><option value="one">Разовая закупка</option><option value="frame">Рамочное соглашение</option></select></td>
       </tr>	
     <tr>
           <td><span>Категория</span></td>
-          <td><select  name="category" id="categorySog" class="form-control"><option>Закупки для целей монтажа</option><option>Иные закупки</option></select></td>
+          <td><select id="categorySog" class="form-control"><option value="installation">Закупки для целей монтажа</option><option value="other">Иные закупки</option></select></td>
       </tr>
       <tr>
           <td><span>Ежегодный оборот по договору (RUB)</span></td>
-          <td><input type="number" name="valuationprice" id="valuationPriceSog" class="form-control" value=""></td>
+          <td><input type="number" id="valuationPriceSog" class="form-control" value="{{ result/valuationprice }}" required></td>
       </tr>
     
       <tr>
@@ -257,9 +254,9 @@
           <td>
           <div>
       <div class="input-group">
-        <input type="text" name="ndog" class="form-control" value="">
+        <input type="text" id="ndog" class="form-control" value="{{ result/ndog }}" required>
         <span class="input-group-btn">
-          <button class="btn btn-default" type="button">Загрузить договор</button>
+          <button class="btn btn-outline-info" type="button">Загрузить договор</button>
         </span>
       </div> 
     </div>         	
@@ -267,11 +264,11 @@
       </tr>
       <tr>
           <td><span>Дата договора</span></td>
-          <td><input type="date" name="dated" class="form-control" value=""></td>
+          <td><input id="dated" type="date" class="form-control" value="{{ result/dated }}" required></td>
       </tr>
       <tr>
           <td><span>Предмет договора (описание закупаемых товаров, работ, услуг)</span></td>
-          <td><input type="text" name="pdog" class="form-control" value=""></td>
+          <td><input id="pdog" type="text" class="form-control" value="{{ result/pdog }}" required></td>
       </tr>
   </table>
   <br>
@@ -280,24 +277,30 @@
       <tr>
           <td>Отдел, инициирующий заключение договора</td>
           <td>
-  <select  name="otdels" class="form-control" value="">
-<option></option>
+  <select  id="otdels" class="form-control">
+    {{#each result/otdels}}
+    <option value="{{this}}">{{this}}</option>
+    {{/each}}
   </select>        	
           </td>
       </tr>
       <tr>
           <td>Владелец договора (ФИО, должность)</td>
           <td>
-  <select  name="vfio" class="form-control" value="">
- <option value="{$user->id}"></option>
+  <select  id="vfio" class="form-control">
+    {{#each result/users}}
+    <option value="{{id}}">{{user}}</option>
+    {{/each}}
   </select>
   </td>
       </tr>
       <tr>
           <td>Администратор договора (ФИО, должность)</td>
           <td>
-  <select  name='afio' class='form-control'><option value="{$user->id}">	
-  </option>
+  <select  id='afio' class='form-control'>
+    {{#each result/users}}
+    <option value="{{id}}">{{user}}</option>
+    {{/each}}
   </select>
   </td>
       </tr>
@@ -307,19 +310,19 @@
   <table class="table">
       <tr>
           <td>Сторона договора (наименование, инн или огрн)</td>
-          <td><input type="text" name="inn" class="form-control" value=""></td>
+          <td><input id="inn" type="text" class="form-control" value="{{ result/inn }}" required></td>
       </tr>
-      <tr>
+      <tr class="table-danger">
           <td>Проверка контрагента</td>
-          <td><select  name="prov" id="prov" class="form-control"><option value="1">выполнена</option><option value="0">не выполнена</option></select></td>
+          <td><select id="partyVer" class="form-control"><option value="false">не выполнена</option><option value="true">выполнена</option></select></td>
       </tr>
-      <tr>
+      <tr class="table-danger">
           <td>Причина не выполнения проверки</td>
-          <td><input id="pprov" type="text" name="pprov" class="form-control" value=""></td>
+          <td><input id="partyVerCom" type="text" class="form-control" value="{{ result/partyvercom }}" required></td>
       </tr>
-      <tr>
+      <tr class="table-danger">
           <td>Степень риска по контрагенту</td>
-          <td><select  name="risk" class="form-control"><option>низкая</option><option>средняя</option><option>высокая</option></select></td>
+          <td><select  id="risk" class="form-control"><option value="high">высокая</option><option value="medium">средняя</option><option value="low">низкая</option></select></td>
       </tr>
   </table>
   <br>
@@ -328,28 +331,32 @@
   <p class="bg-info"><strong>R</strong> – Reviewer (проверяющий), <strong>A</strong> - Approver (утверждающий)</p>
   
   
-  <table class="table" id="sog-list">
-      <tr class="sog-item">
+  <table class="table" id="sogList">
+      <tr>
           <td width="120">Статус (R, A*)</td>
           <td>ФИО (Отдел/Должность)</td>
           <td width="60"></td>
       </tr>
-      <tr class="sog-item">
+      <tr id="sog-item">
           <td><select  name="statusu1" id="statusu" class="form-control"><option value="R">R</option><option value="A">A</option></select></td>
           <td><select  name='sog1' id='sogUsers' class='form-control'>
-<option value="{$user->id}"></option>
+            {{#each result/users}}
+            <option value="{{id}}">{{user}}</option>
+            {{/each}}
     </select>
   </td>
    <td>
-    <button id="deleteButton" type="button" class="deleteButton" disabled><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
+    <button id="del-approver" type="button" class="btn btn-outline-danger" disabled><svg class="bi bi-trash" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+      <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+      <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+    </svg></button>
    </td>
       </tr>
   
   </table>
-  <input type="button" id="addApprover" class="btn btn-default" value="Добавить">
+  <input id="add-approver" type="button" class="btn btn-outline-secondary" value="Добавить">
   <br><br><br>
-  
-  <input type="button" id="create"  name="create" class="btn btn-danger btn-block" value="Создать согласование">
+  <button id="create" class="btn btn-danger btn-block" type="submit">Создать согласование</button>
   </div>
   </form>
   </script>
@@ -375,11 +382,18 @@
           <th>Email</th>
           </tr> <!--ряд с ячейками заголовков-->
     {{#each result/users}}
-      <tr><td>{{id}}</td><td>{{secondname}} {{firstname}} {{patronymic}}</td><td>{{role}}</td><td>{{position}}</td><td>{{otdel}}</td><td>{{email}}</td></tr>
+      <tr>
+        <td>{{id}}</td>
+        <td>{{secondname}} {{firstname}} {{patronymic}}</td>
+        <td>{{role}}</td>
+        <td>{{position}}</td>
+        <td>{{otdel}}</td>
+        <td>{{email}}</td>
+      </tr>
     {{/each}}
           </div>
         </table></div>
-        <div class="pull-right"><a role="button" class="btn btn-default " href="#registration" >Добавить пользователя</a></div>
+        <div class="pull-right"><a role="button" class="btn btn-outline-secondary" href="#registration" >Добавить пользователя</a></div>
   </div>
   </script>
   
@@ -393,26 +407,87 @@
     <strong>Внимание!</strong> Только администраторы могут добавлять новых пользователей.
   </div>
   
-      <form action="rega.php" method="POST">
+      <form id="registration-form">
           <!-- Поля для заполнения инфой и код для автоматического заполнения поля предыдущей инфой, в случае ошибки типа: "Заполните поле ..." -->
-      
-       <label for="inputsecondname" class="sr-only">Фамилия</label>
-        <input type="text" id="inputsecondname" class="form-control" placeholder="Фамилия" name="secondname" value ="фамилия" required autofocus>
-         <label for="inputfirstname" class="sr-only">Имя</label>
-        <input type="text" id="inputfirstname" class="form-control" placeholder="Имя" name="firstname" value ="имя" required>
-        <label for="inputpatronymic" class="sr-only">Отчество</label>
-        <input type="text" id="inputpatronymic" class="form-control" placeholder="Отчество" name="patronymic" value ="отчество" required>
-        <label for="inputposition" class="sr-only">Должность</label>
-        <input type="text" id="inputposition" class="form-control" placeholder="Должность" name="position" value ="должность" required>
-         <label for="inputotdel" class="sr-only">Отдел</label>
-        <input type="text" id="inputotdel" class="form-control" placeholder="Отдел" name="otdel" value ="отдел" required>
-       <label for="inputEmail" class="sr-only">Email</label>
-          <input type="email" id="inputEmail" class="form-control" placeholder="Email" name="email" value ="емеил" required>
-          <label for="inputPassword" class="sr-only">Пароль</label>
-          <input type="password" id="inputPassword" class="form-control" placeholder="Пароль" name="password" required>
-          <br>
-         
-          <button class="btn btn-lg btn-primary btn-block" type="submit" name="buy">Отправить</button>
+          <div class="form-row">
+            <div class="col-md-4 mb-3">
+              <label for="inputfirstname">Имя</label>
+              <input type="text" class="form-control" id="inputfirstname" value="Михаил" required autofocus>
+            </div>
+            <div class="col-md-4 mb-3">
+              <label for="inputsecondname">Фамилия</label>
+              <input type="text" class="form-control" id="inputsecondname" value="Иванов" required>
+            </div>
+            <div class="col-md-4 mb-3">
+              <label for="inputpatronymic">Отчество</label>
+              <input type="text" class="form-control" id="inputpatronymic" value="Александрович" aria-describedby="patronymicHelpBlock">
+              <small id="patronymicHelpBlock" class="form-text text-muted">
+                Опционально.
+                </small>
+            </div>
+          </div>
+    
+        <div class="form-row">
+          <div class="col-md-6 mb-3">
+            <label for="inputposition" >Должность</label>
+         <select  id="inputposition" class="form-control" required>
+          {{#each result/positions}}
+          <option value="{{this}}">{{this}}</option>
+          {{/each}}
+          </select>
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="inputotdel" >Отдел</label>
+        <select  id="inputotdel" class="form-control" required>
+          {{#each result/otdels}}
+          <option value="{{this}}">{{this}}</option>
+          {{/each}}
+          </select>
+          </div>
+        </div>
+
+         <div class="form-row">
+            <div class="col-md-6 mb-3">
+              <label for="inputEmail">Email</label>
+              <input type="email" class="form-control" id="inputEmail" value="example@gmail.ru" required>
+            </div>
+            
+            <div class="col-md-6 mb-3">
+               <label for="inputPassword">Пароль</label>
+                <input type="password" id="inputPassword" class="form-control" aria-describedby="passwordHelpBlock" required>
+                  <small id="passwordHelpBlock" class="form-text text-muted">
+                  Пароль должен состоять из 8-20 символов.
+                  </small>
+            </div>
+           </div>
+
+
+
+           <fieldset class="form-group">
+            <div class="row">
+              <legend class="col-form-label col-sm-2 pt-0">Уровень привилегий</legend>
+              <div class="col-sm-10">
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="gridRadios" id="gridRadiosUser" value="0" checked>
+                  <label class="form-check-label" for="gridRadiosUser">
+                    Пользователь
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="gridRadios" id="gridRadiosAdmin" value="1" aria-describedby="gridRadiosAdminHelpBlock">
+                  <label class="form-check-label" for="gridRadiosAdmin">
+                    Администратор
+                  </label>
+                  <small id="gridRadiosAdminHelpBlock" class="form-text text-muted">
+                    Администратор может регистриовать новых пользователей.
+                    </small>
+                </div>
+                
+              </div>
+            </div>
+          </fieldset>
+
+          <button class="btn btn-lg btn-primary btn-block" id="registrationUser" type="submit" disabled>Отправить</button>
       </form>
   
   </div>
@@ -427,33 +502,44 @@
   <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
   <strong>Внимание!</strong> Некоторые параметры доступны только администраторам.
   </div>
-  <form>
+  <form id="profile-form">
   <h3><small>Общее:</small></h3>
   <table class="table">
       <tr>
-          <td><span>Фамилия</span></td>
-          <td><input type="text" name="secondname" class="form-control" value="фамилия"></td>
+          <td><span>Имя</span></td>
+          <td><input type="text" id="inputfirstname" class="form-control" value="{{result/firstname}}" disabled required></td>
       </tr>
       <tr>
-          <td><span>Имя</span></td>
-          <td><input type="text" name="firstname" class="form-control" value="имя" disabled></td>
+          <td><span>Фамилия</span></td>
+          <td><input type="text" id="inputsecondname" class="form-control" value="{{result/secondname}}" required></td>
       </tr>
       <tr>
           <td><span>Отчество</span></td>
-          <td><input type="text" name="patronymic" class="form-control" value="отчество" disabled></td>
+          <td><input type="text" id="inputpatronymic" class="form-control" value="{{result/patronymic}}" disabled required></td>
       </tr>
     
       <tr>
           <td><span>Должность</span></td>
-          <td>селект с должностями</td>
+          <td>
+            <select  id="inputposition" class="form-control">
+              {{#each result/positions}}
+              <option value="{{this}}">{{this}}</option>
+              {{/each}}
+          </td>
       </tr>
       <tr>
           <td><span>Отдел</span></td>
-      <td>селект с отделами</td>
+      <td>
+        <select  id="inputotdel" class="form-control">
+        {{#each result/otdels}}
+        <option value="{{this}}">{{this}}</option>
+        {{/each}}
+        </select>
+      </td>
       </tr>
        <tr>
          <td><span>Email</span></td>
-         <td><input type="email" name="email" class="form-control" value="example@mail.ru" disabled></td>
+         <td><input type="email" id="inputEmail" class="form-control" value="{{result/email}}" disabled required></td>
       </tr>
   </table>
   <br>
@@ -461,15 +547,20 @@
   <table class="table">
       <tr>
           <td><span>Текущий пароль</span></td>
-          <td><input type="password" name="cur_user_password" class="form-control"></td>
+          <td><input type="password" id="inputCurPassword" class="form-control"></td>
       </tr>
       <tr>
           <td><span>Новый пароль</span></td>
-          <td><input type="password" name="new_user_password" class="form-control"></td>
+          <td><input type="password" id="inputNewPassword" class="form-control" minlength="8" maxlength="20"></td>
       </tr>
       <tr>
           <td><span>Повторите новый пароль</span></td>
-          <td><input type="password" name="confirm_user_password" class="form-control"></td>
+          <td>
+          <div>
+    <input type="password" id="inputConfirmPassword" class="form-control" minlength="8" maxlength="20">
+        <div class="invalid-feed">Пароли не совпадают</div>
+  </div>
+          </td>
       </tr>
   </table>
   <br>
@@ -477,20 +568,20 @@
   <table class="table">
       <tr>
           <td><span>id</span></td>
-          <td><label>Айди пользователя</label></td>
+          <td><label>{{result/id}}</label></td>
       </tr>
       <tr>
           <td><span>Роль</span></td>
-          <td><label>Администратор или Пользователь</label></td>
+          <td><label id="accessLevel">{{result/accessLevel}}</label></td>
       </tr>
       <tr>
           <td><span>Создано согласований</span></td>
-          <td><label>Колличество</label></td>
+          <td><label>{{result/numberOfApprovals}}</label></td>
       </tr>
   </table>
   <br>
   
-  <button type="submit" name="save" class="btn btn-danger btn-block">Сохранить профиль</button>
+  <button type="submit" id="saveProfile" class="btn btn-danger btn-block">Сохранить профиль</button>
   </form>
   </div>
   </script>

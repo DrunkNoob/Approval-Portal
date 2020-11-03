@@ -1,5 +1,6 @@
 {
-    "ok": true,
+  "status": "ok",
+  "error": null,
     "result": {
       "page": 1,
       "totalPages": 1,
