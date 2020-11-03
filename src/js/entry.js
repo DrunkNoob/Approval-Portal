@@ -5,12 +5,35 @@ import View from './view.js'
 import Router from './router.js'
 import Model from './model.js'
 import {isValid} from './utils.js'
-
+import {modal} from './modal.js'
 
 (async () => {
   try {
     // Проверяем залогинился пользователь или нет
     await Model.fetch('notauthorized')
+
+    // Проверка модалки
+    window.mymodal = modal({
+      title: 'Test Title',
+      closable: true,
+      content: `
+  <h4>Modal is working</h4>
+  <p>Test content on modal windows</p>
+  `,
+      footerButtons: [
+        {text: 'Ок', type: 'primary', handler() {
+          console.log('Primary btn clicked')
+          // eslint-disable-next-line no-undef
+          mymodal.close()
+        }},
+        {text: 'Закрыть', type: 'secondary', handler() {
+          console.log('Secondary btn clicked')
+          // eslint-disable-next-line no-undef
+          mymodal.close()
+        }}
+      ]
+    })
+
 
     Router.init()
   } catch (error) {
