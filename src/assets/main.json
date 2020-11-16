@@ -2,8 +2,14 @@
     "status": "ok",
     "error": null,
     "result": {
-      "loginUser": "Тимур Владимирович Рыба",
-      "idUser": 88,
-      "accessLevel": 1
+      "loginUser": {
+        "secondname": "Рыба",
+        "firstname": "Тимур",
+        "patronymic": "Владимирович"
+      },
+      "idUser": 2,
+      "accessLevel": 1,
+      "otdel": "Карательный",
+      "position": "Менеджер по продажам"
     }
 }

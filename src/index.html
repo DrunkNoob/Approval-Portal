@@ -71,7 +71,7 @@
 
     <footer class="footer mt-auto py-3">
       <div class="container">
-        <span class="text-muted">Place sticky footer content here.</span>
+        <span class="text-muted">Портал согласования 2020.</span>
       </div>
     </footer>
   </script>
@@ -125,8 +125,7 @@
   <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
   <strong>Создатель данного согласования: {{ result/creator }}</strong>
   </div>	
-  <div class='alert alert-warning' role='alert'><strong>Внимание!</strong> Вы не сможете скачать PDF до согласования всеми участниками.</div>
-  <div class='alert alert-warning' role='alert'><strong>Внимание!</strong><br><ul><li>Данное согласование имеет комментарий.</li><li>Вы не сможете скачать PDF до согласования всеми участниками.</li></ul></div>	
+  
   <form id="agreement-form">
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
   <h3><small>Данные о договоре:</small></h3>
@@ -525,6 +524,7 @@
               {{#each result/positions}}
               <option value="{{this}}">{{this}}</option>
               {{/each}}
+            </select>
           </td>
       </tr>
       <tr>
@@ -614,6 +614,16 @@
   <br>	
   </div>
   </script>
+
+
+    <!-- Loading --> 
+    <script id="loadTemplate" type="text/template">
+      <div class="d-flex justify-content-center" style="height: 100vh">
+        <div class="spinner-grow" style="width: 5rem; height: 5rem; align-items: center;" role="status">
+          <span class="sr-only">Loading...</span>
+        </div>
+      </div>
+    </script>
 
 </body>
 </html>

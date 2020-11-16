@@ -5,37 +5,42 @@ import View from './view.js'
 import Router from './router.js'
 import Model from './model.js'
 import {isValid} from './utils.js'
-import {modal} from './modal.js'
+// import {modal} from './modal.js'
 
 (async () => {
   try {
     // Проверяем залогинился пользователь или нет
     await Model.fetch('notauthorized')
+    const main = await Model.fetch('main')
+    await localStorage.setItem('main', JSON.stringify(main))
+    if (main.result.accessLevel === 1) {
+      console.log('Baty v zdanii')
+    } else {
+      console.log('Pau')
+    }
+    await Router.init()
 
-    // Проверка модалки
-    window.mymodal = modal({
-      title: 'Test Title',
-      closable: true,
-      content: `
-  <h4>Modal is working</h4>
-  <p>Test content on modal windows</p>
-  `,
-      footerButtons: [
-        {text: 'Ок', type: 'primary', handler() {
-          console.log('Primary btn clicked')
-          // eslint-disable-next-line no-undef
-          mymodal.close()
-        }},
-        {text: 'Закрыть', type: 'secondary', handler() {
-          console.log('Secondary btn clicked')
-          // eslint-disable-next-line no-undef
-          mymodal.close()
-        }}
-      ]
-    })
-
-
-    Router.init()
+    //   // Проверка модалки
+    //   window.mymodal = modal({
+    //     title: 'Test Title',
+    //     closable: true,
+    //     content: `
+    // <h4>Modal is working</h4>
+    // <p>Test content on modal windows</p>
+    // `,
+    //     footerButtons: [
+    //       {text: 'Ок', type: 'primary', handler() {
+    //         console.log('Primary btn clicked')
+    //         // eslint-disable-next-line no-undef
+    //         mymodal.close()
+    //       }},
+    //       {text: 'Закрыть', type: 'secondary', handler() {
+    //         console.log('Secondary btn clicked')
+    //         // eslint-disable-next-line no-undef
+    //         mymodal.close()
+    //       }}
+    //     ]
+    //   })
   } catch (error) {
     console.error(error)
     alert('Ошибка (консоль)')

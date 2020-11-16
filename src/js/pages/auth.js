@@ -9,7 +9,7 @@ export default {
     resultsNode.innerHTML = View.render('authForm')
     document
         .getElementById('auth-form')
-        .addEventListener('submit', authFormHandler, {onse: true})
+        .addEventListener('submit', authFormHandler, {once: true})
   }
 }
 

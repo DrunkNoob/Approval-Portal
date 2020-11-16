@@ -2,7 +2,9 @@
     "status": "ok",
     "error": null,
     "result": {
+      "creatorID": 3,
       "creator": "Яковенко Данил Юрьевич",
+      "approved": false,
       "type": "Разовые закупки",
       "category": "Закупки для целей монтажа",
       "valuationprice": "5245",
@@ -28,6 +30,7 @@
       "risk": "низкая",
       "reviewer": [
         {
+          "id": 0,
           "statusu": "R",
           "secondname": "Яковенко",
           "firstname": "Данил",
@@ -35,27 +38,29 @@
           "otdel": "Карательный",
           "position": "Менеджер по продажам",
           "status": true,
-          "comment": "dgdgdgdgdgd"
+          "comment": "Где печать на бланке?!"
         },
         {
+          "id": 1,
           "statusu": "R",
-          "secondname": "Яковенко",
-          "firstname": "Данил",
-          "patronymic": "Юрьевич",
+          "secondname": "Степанов",
+          "firstname": "Алексей",
+          "patronymic": "Евгеньевич",
           "otdel": "Карательный",
           "position": "Менеджер по продажам",
           "status": false,
-          "comment": "fdfdfdfdfdfdfdfdfdfdf dfdfdfdfdfd fdf fdfdfd fd fd fdf d fd fd fdf dfdfwrrh"
+          "comment": "Ооочень длинный комментарий для проверки в модальном окне."
         },
         {
+          "id": 2,
           "statusu": "R",
-          "secondname": "Яковенко",
-          "firstname": "Данил",
-          "patronymic": "Юрьевич",
+          "secondname": "Красовский",
+          "firstname": "Семен",
+          "patronymic": "Аркадьевич",
           "otdel": "Карательный",
           "position": "Менеджер по продажам",
           "status": true,
-          "comment": null
+          "comment": ""
         }
       ]
     }
