@@ -8,8 +8,9 @@ import registrationPage from './pages/registration.js'
 import profilePage from './pages/profile.js'
 import newagreementPage from './pages/newagreement.js'
 import authPage from './pages/auth.js'
+// import {modal} from './modal.js'
 
-// принимаем из router действие и обрабатываем
+// Принимаем из router действие и обрабатываем
 export default {
   async indexRoute() {
     document.getElementById('results').innerHTML = await View.render('load')
@@ -40,10 +41,24 @@ export default {
     registrationPage.render(document.getElementById('results'))
   },
 
-  aboutRoute() {
-    const resultsNode = document.getElementById('results')
-    resultsNode.innerHTML = View.render('about')
-  },
+  // aboutRoute() {
+  //   // const resultsNode = document.getElementById('results')
+  //   // resultsNode.innerHTML = View.render('about')
+  //   const aboutModal = modal({
+  //     title: 'Комментарий',
+  //     closable: true,
+  //     content: `
+  //       <h4>Modal is working</h4>
+  //       <p>Test content on modal windows</p>
+  //         `,
+  //     footerButtons: [
+  //       {text: 'Закрыть', type: 'secondary', handler() {
+  //         aboutModal.close()
+  //       }}
+  //     ]
+  //   })
+  //   aboutModal.open()
+  // },
 
   async profileRoute() {
     document.getElementById('results').innerHTML = await View.render('load')
