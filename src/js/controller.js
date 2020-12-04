@@ -4,7 +4,7 @@ import View from './view.js'
 import indexPage from './pages/index.js'
 import agreementPage from './pages/agreement.js'
 import usersPage from './pages/users.js'
-import registrationPage from './pages/registration.js'
+// import registrationPage from './pages/registration.js'
 import profilePage from './pages/profile.js'
 import newagreementPage from './pages/newagreement.js'
 import authPage from './pages/auth.js'
@@ -34,12 +34,12 @@ export default {
     usersPage.render(document.getElementById('results'))
   },
 
-  async registrationRoute() {
-    document.getElementById('results').innerHTML = await View.render('load')
-    const registration = await Model.fetch('registration')
-    registrationPage.setData(registration)
-    registrationPage.render(document.getElementById('results'))
-  },
+  // async registrationRoute() {
+  //   document.getElementById('results').innerHTML = await View.render('load')
+  //   const registration = await Model.fetch('registration')
+  //   registrationPage.setData(registration)
+  //   registrationPage.render(document.getElementById('results'))
+  // },
 
   // aboutRoute() {
   //   // const resultsNode = document.getElementById('results')

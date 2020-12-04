@@ -1,3 +1,4 @@
+/* eslint-disable no-invalid-this */
 /* eslint-disable max-len */
 import '../css/bootstrap.min.css'
 import '../css/main.css'
@@ -10,9 +11,9 @@ import {modal} from './modal.js'
 (async () => {
   try {
     // Проверяем залогинился пользователь или нет
-    await Model.fetch('notauthorized')
     const main = await Model.fetch('main')
     localStorage.setItem('main', JSON.stringify(main))
+
     if (main.result.accessLevel === 1) {
       console.log('Access level: ADMIN')
     } else {
@@ -32,6 +33,7 @@ import {modal} from './modal.js'
 })()
 
 function pageScript() {
+  // console.log(registrationM)
   // Активация выподающего меню в navbar
   const navItemDropdown = document.getElementById('navItemDropdown')
   navItemDropdown.addEventListener('click', () => {
@@ -92,13 +94,199 @@ function pageScript() {
         aboutModal.close()
       }}
     ]
-  }, {once: true})
+  })
 
   aboutClick.addEventListener('click', () => {
-    console.log('test')
     aboutModal.open()
   })
+
+
+  // Открытие модального окна с регистрацией новых пользователей
+  const registrationClick = document.querySelector('[data-registration]')
+  const registrationModal = function(param) {
+    return new Promise((resolve, reject) => {
+      const regModal = modal({
+        title: 'Регистрация новых пользователей',
+        closable: true,
+        content: `
+        <form id="registration-form">
+        <!-- Поля для заполнения инфой и код для автоматического заполнения поля предыдущей инфой, в случае ошибки типа: "Заполните поле ..." -->
+        <div class="form-row">
+          <div class="col-md-4 mb-3">
+            <label for="inputfirstname">Имя</label>
+            <input type="text" class="form-control" id="inputfirstname" placeholder="Михаил" required autofocus>
+          </div>
+          <div class="col-md-4 mb-3">
+            <label for="inputsecondname">Фамилия</label>
+            <input type="text" class="form-control" id="inputsecondname" placeholder="Иванов" required>
+          </div>
+          <div class="col-md-4 mb-3">
+            <label for="inputpatronymic">Отчество</label>
+            <input type="text" class="form-control" id="inputpatronymic" placeholder="Александрович" aria-describedby="patronymicHelpBlock">
+            <small id="patronymicHelpBlock" class="form-text text-muted">
+              Опционально.
+              </small>
+          </div>
+        </div>
+    
+      <div class="form-row">
+        <div class="col-md-6 mb-3">
+          <label for="inputposition" >Должность</label>
+       <select  id="inputposition" class="form-control" required>
+        
+        <option value=""></option>
+       
+        </select>
+        </div>
+        <div class="col-md-6 mb-3">
+          <label for="inputotdel" >Отдел</label>
+      <select  id="inputotdel" class="form-control" required>
+        
+        <option value="{{this}}">{{this}}</option>
+        
+        </select>
+        </div>
+      </div>
+    
+       <div class="form-row">
+          <div class="col-md-6 mb-3">
+            <label for="inputEmail">Email</label>
+            <input type="email" class="form-control" id="inputEmail" placeholder="example@gmail.ru" required>
+          </div>
+          
+          <div class="col-md-6 mb-3">
+             <label for="inputPassword">Пароль</label>
+              <input type="password" id="inputPassword" class="form-control" aria-describedby="passwordHelpBlock" required>
+                <small id="passwordHelpBlock" class="form-text text-muted">
+                Пароль должен состоять из 8-20 символов.
+                </small>
+          </div>
+         </div>
+    
+    
+    
+         <fieldset class="form-group">
+          <div class="row">
+            <legend class="col-form-label col-sm-2 pt-0">Уровень привилегий</legend>
+            <div class="col-sm-10">
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="gridRadios" id="gridRadiosUser" value="0" checked>
+                <label class="form-check-label" for="gridRadiosUser">
+                  Пользователь
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="gridRadios" id="gridRadiosAdmin" value="1" aria-describedby="gridRadiosAdminHelpBlock">
+                <label class="form-check-label" for="gridRadiosAdmin">
+                  Администратор
+                </label>
+                <small id="gridRadiosAdminHelpBlock" class="form-text text-muted">
+                  Администратор может регистриовать новых пользователей.
+                  </small>
+              </div>
+              
+            </div>
+          </div>
+            </fieldset>
+        </form>
+              `,
+        onClose() {
+          regModal.destroy()
+        },
+        footerButtons: [
+          {text: 'Отправить', type: 'primary', id: 'registrationUserBtn', disabled: true, handler() {
+            resolve(regModal)
+          }},
+          {text: 'Закрыть', type: 'secondary', handler() {
+            reject(regModal)
+          }}
+        ]
+      })
+      // Таймер для анимации
+      setTimeout(() => regModal.open(), 200)
+    })
+  }
+
+
+  registrationClick.addEventListener('click', () => {
+    // eslint-disable-next-line no-undef
+    registrationModal()
+        .then(regModal => {
+          // registrationFormHandler(document.getElementById('registration-form'))
+          const fetch = {}
+          fetch.firstname = registrationForm.querySelector('#inputfirstname').value
+          fetch.secondname = registrationForm.querySelector('#inputsecondname').value
+          fetch.patronymic = registrationForm.querySelector('#inputpatronymic').value
+          fetch.position = registrationForm.querySelector('#inputposition').value
+          fetch.otdel = registrationForm.querySelector('#inputotdel').value
+          fetch.email = registrationForm.querySelector('#inputEmail').value
+          const radios = registrationForm.querySelectorAll('input[name="gridRadios"]')
+
+          for (const radio of radios) {
+            if (radio.checked) {
+              fetch.accessLevel = radio.value
+            }
+          }
+
+          // request to server
+          console.log(fetch)
+          regModal.close()
+        })
+        .catch(regModal => {
+          regModal.close()
+        })
+    // Скрипт на модальном окне
+    // console.log(reg)
+    const registrationForm = document.getElementById('registration-form')
+    const password = registrationForm.querySelector('#inputPassword')
+    const registrationUserBtn = document.getElementById('registrationUserBtn')
+    password.addEventListener('input', () => {
+      registrationUserBtn.disabled = !isValid(password.value, 6)
+      fetch.password = password.value
+    })
+    // registrationForm.addEventListener('submit', registrationFormHandler, {onse: true})
+
+
+    const $positions = registrationForm.querySelector('#inputposition')
+    // eslint-disable-next-line no-invalid-this
+    const $otdels = registrationForm.querySelector('#inputotdel')
+    const main = JSON.parse(localStorage.getItem('main'))
+
+    const positions = main.result.registration.positions
+    const otdels = main.result.registration.otdels
+
+    toSelect(positions, $positions)
+    toSelect(otdels, $otdels)
+
+    function toSelect(optionMain, node) {
+      const htmlOption = optionMain.map(toOption).join('')
+
+
+      node.innerHTML = htmlOption
+
+      function toOption(option) {
+        return `
+        <option value="${option}">${option}</option>
+        `
+      }
+    }
+  })
 }
+
+// function registrationFormHandler(event) {
+//   event.preventDefault()
+//   const radios = this.querySelectorAll('input[name="gridRadios"]')
+
+//   for (const radio of radios) {
+//     if (radio.checked) {
+//       fetch.accessLevel = radio.value
+//     }
+//   }
+
+
+//   // request to server
+//   console.log(fetch)
+// }
 
 export function authHandler(value) {
   if (value=='false') {

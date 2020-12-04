@@ -10,6 +10,20 @@
       "idUser": 2,
       "accessLevel": 1,
       "otdel": "Карательный",
-      "position": "Менеджер по продажам"
+      "position": "Менеджер по продажам",
+      "registration": {
+        "positions": [
+          "Менеджер по продажам",
+          "Sourcing Specialist",
+          "Кладовщик",
+          "Каратель",
+          "Экзорцист"
+        ],
+        "otdels": [
+          "Карательный",
+          "Sourcing",
+          "Отдел продаж"
+      ]
+        }
     }
 }
