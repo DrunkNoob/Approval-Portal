@@ -33,13 +33,30 @@ import {modal} from './modal.js'
 })()
 
 function pageScript() {
-  // console.log(registrationM)
-  // Активация выподающего меню в navbar
+  // Рендер элементов navbar в зависимости от прав авторизованного
   const navItemDropdown = document.getElementById('navItemDropdown')
-  navItemDropdown.addEventListener('click', () => {
-    navItemDropdown.classList.toggle('show')
-    navItemDropdown.querySelector('[aria-labelledby=dropdown01]').classList.toggle('show')
-  })
+  if (JSON.parse(localStorage.getItem('main')).result.accessLevel === 1) {
+    navItemDropdown.insertAdjacentHTML('afterBegin', `
+     <a class="nav-link dropdown-toggle" id="dropdown01" data-toggle="dropdown" style="cursor: pointer" aria-haspopup="true">Пользователи</a>
+     <div id="dropdown-menu" class="dropdown-menu" aria-labelledby="dropdown01">
+       <a class="dropdown-item" data-role="nav-users" href="#users">Просмотр пользователей</a>
+       <a class="dropdown-item" data-role="nav-registration" data-registration>Регистрация новых пользователей</a>
+     </div>
+     `)
+    navItemDropdown.className = 'nav-item dropdown'
+
+    // Активация выподающего меню в navbar если авторизовался админ
+    navItemDropdown.addEventListener('click', () => {
+      navItemDropdown.classList.toggle('show')
+      navItemDropdown.querySelector('[aria-labelledby=dropdown01]').classList.toggle('show')
+    })
+  } else {
+    navItemDropdown.insertAdjacentHTML('afterBegin', `
+       <a class="nav-link" data-role="nav-users" href="#users">Просмотр пользователей</a>
+     `)
+    // navItemDropdown.className('')
+  }
+
 
   // Поиск по согласованию
   const formSearchAgreement = document.getElementById('formSearchAgreement')
@@ -212,7 +229,6 @@ function pageScript() {
     // eslint-disable-next-line no-undef
     registrationModal()
         .then(regModal => {
-          // registrationFormHandler(document.getElementById('registration-form'))
           const fetch = {}
           fetch.firstname = registrationForm.querySelector('#inputfirstname').value
           fetch.secondname = registrationForm.querySelector('#inputsecondname').value
@@ -235,8 +251,8 @@ function pageScript() {
         .catch(regModal => {
           regModal.close()
         })
+
     // Скрипт на модальном окне
-    // console.log(reg)
     const registrationForm = document.getElementById('registration-form')
     const password = registrationForm.querySelector('#inputPassword')
     const registrationUserBtn = document.getElementById('registrationUserBtn')
@@ -244,11 +260,9 @@ function pageScript() {
       registrationUserBtn.disabled = !isValid(password.value, 6)
       fetch.password = password.value
     })
-    // registrationForm.addEventListener('submit', registrationFormHandler, {onse: true})
 
 
     const $positions = registrationForm.querySelector('#inputposition')
-    // eslint-disable-next-line no-invalid-this
     const $otdels = registrationForm.querySelector('#inputotdel')
     const main = JSON.parse(localStorage.getItem('main'))
 
@@ -273,20 +287,6 @@ function pageScript() {
   })
 }
 
-// function registrationFormHandler(event) {
-//   event.preventDefault()
-//   const radios = this.querySelectorAll('input[name="gridRadios"]')
-
-//   for (const radio of radios) {
-//     if (radio.checked) {
-//       fetch.accessLevel = radio.value
-//     }
-//   }
-
-
-//   // request to server
-//   console.log(fetch)
-// }
 
 export function authHandler(value) {
   if (value=='false') {

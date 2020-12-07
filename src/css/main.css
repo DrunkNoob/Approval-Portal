@@ -90,7 +90,7 @@ code {
 .modalBase.show .modal-overlay,
 .modalBase.show .modal-window {
   opacity: 1;
-  z-index: 1000;
+  z-index: 1031;
 }
 
 .modalBase.hide .modal-overlay,
@@ -169,3 +169,8 @@ z-index: -1;
 }
 /* Agreement
 -------------------------------------------------- */
+
+
+#navItemDropdown {
+  cursor: pointer;
+}
