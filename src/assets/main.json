@@ -24,6 +24,15 @@
           "Sourcing",
           "Отдел продаж"
       ]
-        }
+        },
+        "routerList": [
+          "agreement",
+          "auth",
+          "index",
+          "newagreement",
+          "profile",
+          "users",
+          "error"
+        ]
     }
 }
