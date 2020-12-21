@@ -43,7 +43,6 @@ export default {
 
     agreementPage.setData(agreement)
     agreementPage.render(document.getElementById('results'))
-    setActiveNavNode()
   },
   async usersRoute() {
     document.getElementById('results').innerHTML = await View.render('load')
@@ -59,7 +58,6 @@ export default {
     const profile = await Model.fetch('profile')
 
     profilePage.setData(profile)
-    console.log(profile)
     profilePage.render(document.getElementById('results'))
     setActiveNavNode(document.querySelector('[data-role=nav-profile]'))
   },

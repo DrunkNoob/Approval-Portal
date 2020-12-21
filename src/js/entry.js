@@ -119,13 +119,14 @@ function pageScript() {
 
 
   // Открытие модального окна с регистрацией новых пользователей
-  const registrationClick = document.querySelector('[data-registration]')
-  const registrationModal = function(param) {
-    return new Promise((resolve, reject) => {
-      const regModal = modal({
-        title: 'Регистрация новых пользователей',
-        closable: true,
-        content: `
+  if (JSON.parse(localStorage.getItem('main')).result.accessLevel === 1) {
+    const registrationClick = document.querySelector('[data-registration]')
+    const registrationModal = function(param) {
+      return new Promise((resolve, reject) => {
+        const regModal = modal({
+          title: 'Регистрация новых пользователей',
+          closable: true,
+          content: `
         <form id="registration-form">
         <!-- Поля для заполнения инфой и код для автоматического заполнения поля предыдущей инфой, в случае ошибки типа: "Заполните поле ..." -->
         <div class="form-row">
@@ -207,84 +208,85 @@ function pageScript() {
             </fieldset>
         </form>
               `,
-        onClose() {
-          regModal.destroy()
-        },
-        footerButtons: [
-          {text: 'Отправить', type: 'primary', id: 'registrationUserBtn', disabled: true, handler() {
-            resolve(regModal)
-          }},
-          {text: 'Закрыть', type: 'secondary', handler() {
-            reject(regModal)
-          }}
-        ]
+          onClose() {
+            regModal.destroy()
+          },
+          footerButtons: [
+            {text: 'Отправить', type: 'primary', id: 'registrationUserBtn', disabled: true, handler() {
+              resolve(regModal)
+            }},
+            {text: 'Закрыть', type: 'secondary', handler() {
+              reject(regModal)
+            }}
+          ]
+        })
+        // Таймер для анимации
+        setTimeout(() => regModal.open(), 200)
       })
-      // Таймер для анимации
-      setTimeout(() => regModal.open(), 200)
-    })
-  }
+    }
 
 
-  registrationClick.addEventListener('click', () => {
+    registrationClick.addEventListener('click', () => {
     // eslint-disable-next-line no-undef
-    registrationModal()
-        .then(regModal => {
-          const fetch = {}
-          fetch.firstname = registrationForm.querySelector('#inputfirstname').value
-          fetch.secondname = registrationForm.querySelector('#inputsecondname').value
-          fetch.patronymic = registrationForm.querySelector('#inputpatronymic').value
-          fetch.position = registrationForm.querySelector('#inputposition').value
-          fetch.otdel = registrationForm.querySelector('#inputotdel').value
-          fetch.email = registrationForm.querySelector('#inputEmail').value
-          const radios = registrationForm.querySelectorAll('input[name="gridRadios"]')
+      registrationModal()
+          .then(regModal => {
+            const fetch = {}
+            fetch.firstname = registrationForm.querySelector('#inputfirstname').value
+            fetch.secondname = registrationForm.querySelector('#inputsecondname').value
+            fetch.patronymic = registrationForm.querySelector('#inputpatronymic').value
+            fetch.position = registrationForm.querySelector('#inputposition').value
+            fetch.otdel = registrationForm.querySelector('#inputotdel').value
+            fetch.email = registrationForm.querySelector('#inputEmail').value
+            const radios = registrationForm.querySelectorAll('input[name="gridRadios"]')
 
-          for (const radio of radios) {
-            if (radio.checked) {
-              fetch.accessLevel = radio.value
+            for (const radio of radios) {
+              if (radio.checked) {
+                fetch.accessLevel = radio.value
+              }
             }
-          }
 
-          // request to server
-          console.log(fetch)
-          regModal.close()
-        })
-        .catch(regModal => {
-          regModal.close()
-        })
+            // request to server
+            console.log(fetch)
+            regModal.close()
+          })
+          .catch(regModal => {
+            regModal.close()
+          })
 
-    // Скрипт на модальном окне
-    const registrationForm = document.getElementById('registration-form')
-    const password = registrationForm.querySelector('#inputPassword')
-    const registrationUserBtn = document.getElementById('registrationUserBtn')
-    password.addEventListener('input', () => {
-      registrationUserBtn.disabled = !isValid(password.value, 6)
-      fetch.password = password.value
-    })
-
-
-    const $positions = registrationForm.querySelector('#inputposition')
-    const $otdels = registrationForm.querySelector('#inputotdel')
-    const main = JSON.parse(localStorage.getItem('main'))
-
-    const positions = main.result.registration.positions
-    const otdels = main.result.registration.otdels
-
-    toSelect(positions, $positions)
-    toSelect(otdels, $otdels)
-
-    function toSelect(optionMain, node) {
-      const htmlOption = optionMain.map(toOption).join('')
+      // Скрипт на модальном окне
+      const registrationForm = document.getElementById('registration-form')
+      const password = registrationForm.querySelector('#inputPassword')
+      const registrationUserBtn = document.getElementById('registrationUserBtn')
+      password.addEventListener('input', () => {
+        registrationUserBtn.disabled = !isValid(password.value, 6)
+        fetch.password = password.value
+      })
 
 
-      node.innerHTML = htmlOption
+      const $positions = registrationForm.querySelector('#inputposition')
+      const $otdels = registrationForm.querySelector('#inputotdel')
+      const main = JSON.parse(localStorage.getItem('main'))
 
-      function toOption(option) {
-        return `
+      const positions = main.result.registration.positions
+      const otdels = main.result.registration.otdels
+
+      toSelect(positions, $positions)
+      toSelect(otdels, $otdels)
+
+      function toSelect(optionMain, node) {
+        const htmlOption = optionMain.map(toOption).join('')
+
+
+        node.innerHTML = htmlOption
+
+        function toOption(option) {
+          return `
         <option value="${option}">${option}</option>
         `
+        }
       }
-    }
-  })
+    })
+  }
 }
 
 

@@ -498,14 +498,14 @@
   </div>
   <form id="profile-form">
   <h3><small>Общее:</small></h3>
-  <table class="table">
+  <table class="table" id="tableMain">
       <tr>
           <td><span>Имя</span></td>
           <td><input type="text" id="inputfirstname" class="form-control" value="{{result/firstname}}" disabled required></td>
       </tr>
       <tr>
           <td><span>Фамилия</span></td>
-          <td><input type="text" id="inputsecondname" class="form-control" value="{{result/secondname}}" required></td>
+          <td><input type="text" id="inputsecondname" class="form-control" value="{{result/secondname}}" disabled required></td>
       </tr>
       <tr>
           <td><span>Отчество</span></td>
@@ -515,7 +515,7 @@
       <tr>
           <td><span>Должность</span></td>
           <td>
-            <select  id="inputposition" class="form-control">
+            <select  id="inputposition" class="form-control" disabled>
               {{#each result/positions}}
               <option value="{{this}}">{{this}}</option>
               {{/each}}
@@ -525,7 +525,7 @@
       <tr>
           <td><span>Отдел</span></td>
       <td>
-        <select  id="inputotdel" class="form-control">
+        <select  id="inputotdel" class="form-control" disabled>
         {{#each result/otdels}}
         <option value="{{this}}">{{this}}</option>
         {{/each}}
@@ -537,27 +537,7 @@
          <td><input type="email" id="inputEmail" class="form-control" value="{{result/email}}" disabled required></td>
       </tr>
   </table>
-  <br>
-  <h3><small>Безопасность:</small></h3>
-  <table class="table">
-      <tr>
-          <td><span>Текущий пароль</span></td>
-          <td><input type="password" id="inputCurPassword" class="form-control"></td>
-      </tr>
-      <tr>
-          <td><span>Новый пароль</span></td>
-          <td><input type="password" id="inputNewPassword" class="form-control" minlength="8" maxlength="20"></td>
-      </tr>
-      <tr>
-          <td><span>Повторите новый пароль</span></td>
-          <td>
-          <div>
-    <input type="password" id="inputConfirmPassword" class="form-control" minlength="8" maxlength="20">
-        <div class="invalid-feed">Пароли не совпадают</div>
-  </div>
-          </td>
-      </tr>
-  </table>
+  
   <br>
   <h3><small>Информация:</small></h3>
   <table class="table">
@@ -576,7 +556,6 @@
   </table>
   <br>
   
-  <button type="submit" id="saveProfile" class="btn btn-danger btn-block">Сохранить профиль</button>
   </form>
   </div>
   </script>
