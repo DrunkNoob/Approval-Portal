@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
+    <meta name="description" content="Портал согласования">
     <meta name="author" content="Danil Yakovenko">
     <title>Портал согласования</title>
   </head>
@@ -36,24 +36,19 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
           <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
+            <li class="nav-item" data-role="nav-index">
               <a class="nav-link" href="/#">Главная <span class="sr-only">(current)</span></a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" data-role="nav-newagreement" href="#newagreement">Создать новое согласование</a>
+            <li class="nav-item" data-role="nav-newagreement">
+              <a class="nav-link" href="#newagreement">Создать новое согласование</a>
             </li>
-            <li id="navItemDropdown" class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" id="dropdown01" data-toggle="dropdown" aria-haspopup="true">Пользователи</a>
-              <div id="dropdown-menu" class="dropdown-menu" aria-labelledby="dropdown01">
-                <a class="dropdown-item" data-role="nav-users" href="#users">Просмотр пользователей</a>
-                <a class="dropdown-item" data-role="nav-registration" href="#registration">Регистрация новых пользователей</a>
-              </div>
+            <li id="navItemDropdown" class="nav-item" data-role="nav-users">
+            </li>
+            <li class="nav-item" data-role="nav-profile">
+              <a class="nav-link" href="#profile">Профиль</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" data-role="nav-profile" href="#profile">Профиль</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" data-role="nav-about" href="#about"><b>О проекте</b></a>
+              <a class="nav-link" style="cursor: pointer" data-about><strong>О проекте</strong></a>
             </li>
           </ul>
           <form id="formSearchAgreement" class="form-inline mt-2 mt-md-0">
@@ -71,7 +66,7 @@
 
     <footer class="footer mt-auto py-3">
       <div class="container">
-        <span class="text-muted">Place sticky footer content here.</span>
+        <span class="text-muted">Портал согласования 2020.</span>
       </div>
     </footer>
   </script>
@@ -86,7 +81,7 @@
     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
     Для просмотра согласования и загрузки <strong>PDF</strong> выберите номер договора и нажмите на "<strong>Посмотреть согласование</strong>".
   </div>
-    <form action="main.php" method="POST">
+    <form>
       
           <div class="table-responsive">
         <table class="table table-striped table-bordered table-hover table-condensed" id="tableSogList">
@@ -125,8 +120,7 @@
   <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
   <strong>Создатель данного согласования: {{ result/creator }}</strong>
   </div>	
-  <div class='alert alert-warning' role='alert'><strong>Внимание!</strong> Вы не сможете скачать PDF до согласования всеми участниками.</div>
-  <div class='alert alert-warning' role='alert'><strong>Внимание!</strong><br><ul><li>Данное согласование имеет комментарий.</li><li>Вы не сможете скачать PDF до согласования всеми участниками.</li></ul></div>	
+  
   <form id="agreement-form">
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
   <h3><small>Данные о договоре:</small></h3>
@@ -382,18 +376,17 @@
           <th>Email</th>
           </tr> <!--ряд с ячейками заголовков-->
     {{#each result/users}}
-      <tr>
+      <tr  class="tableSubmit" id="{{id}}">
         <td>{{id}}</td>
         <td>{{secondname}} {{firstname}} {{patronymic}}</td>
         <td>{{role}}</td>
         <td>{{position}}</td>
         <td>{{otdel}}</td>
-        <td>{{email}}</td>
+        <td><a href="mailto:{{email}}">{{email}}</a></td>
       </tr>
     {{/each}}
           </div>
         </table></div>
-        <div class="pull-right"><a role="button" class="btn btn-outline-secondary" href="#registration" >Добавить пользователя</a></div>
   </div>
   </script>
   
@@ -412,15 +405,15 @@
           <div class="form-row">
             <div class="col-md-4 mb-3">
               <label for="inputfirstname">Имя</label>
-              <input type="text" class="form-control" id="inputfirstname" value="Михаил" required autofocus>
+              <input type="text" class="form-control" id="inputfirstname" placeholder="Михаил" required autofocus>
             </div>
             <div class="col-md-4 mb-3">
               <label for="inputsecondname">Фамилия</label>
-              <input type="text" class="form-control" id="inputsecondname" value="Иванов" required>
+              <input type="text" class="form-control" id="inputsecondname" placeholder="Иванов" required>
             </div>
             <div class="col-md-4 mb-3">
               <label for="inputpatronymic">Отчество</label>
-              <input type="text" class="form-control" id="inputpatronymic" value="Александрович" aria-describedby="patronymicHelpBlock">
+              <input type="text" class="form-control" id="inputpatronymic" placeholder="Александрович" aria-describedby="patronymicHelpBlock">
               <small id="patronymicHelpBlock" class="form-text text-muted">
                 Опционально.
                 </small>
@@ -449,7 +442,7 @@
          <div class="form-row">
             <div class="col-md-6 mb-3">
               <label for="inputEmail">Email</label>
-              <input type="email" class="form-control" id="inputEmail" value="example@gmail.ru" required>
+              <input type="email" class="form-control" id="inputEmail" placeholder="example@gmail.ru" required>
             </div>
             
             <div class="col-md-6 mb-3">
@@ -491,6 +484,7 @@
       </form>
   
   </div>
+  
   </script>
   
   
@@ -504,14 +498,14 @@
   </div>
   <form id="profile-form">
   <h3><small>Общее:</small></h3>
-  <table class="table">
+  <table class="table" id="tableMain">
       <tr>
           <td><span>Имя</span></td>
           <td><input type="text" id="inputfirstname" class="form-control" value="{{result/firstname}}" disabled required></td>
       </tr>
       <tr>
           <td><span>Фамилия</span></td>
-          <td><input type="text" id="inputsecondname" class="form-control" value="{{result/secondname}}" required></td>
+          <td><input type="text" id="inputsecondname" class="form-control" value="{{result/secondname}}" disabled required></td>
       </tr>
       <tr>
           <td><span>Отчество</span></td>
@@ -521,16 +515,17 @@
       <tr>
           <td><span>Должность</span></td>
           <td>
-            <select  id="inputposition" class="form-control">
+            <select  id="inputposition" class="form-control" disabled>
               {{#each result/positions}}
               <option value="{{this}}">{{this}}</option>
               {{/each}}
+            </select>
           </td>
       </tr>
       <tr>
           <td><span>Отдел</span></td>
       <td>
-        <select  id="inputotdel" class="form-control">
+        <select  id="inputotdel" class="form-control" disabled>
         {{#each result/otdels}}
         <option value="{{this}}">{{this}}</option>
         {{/each}}
@@ -542,27 +537,7 @@
          <td><input type="email" id="inputEmail" class="form-control" value="{{result/email}}" disabled required></td>
       </tr>
   </table>
-  <br>
-  <h3><small>Безопасность:</small></h3>
-  <table class="table">
-      <tr>
-          <td><span>Текущий пароль</span></td>
-          <td><input type="password" id="inputCurPassword" class="form-control"></td>
-      </tr>
-      <tr>
-          <td><span>Новый пароль</span></td>
-          <td><input type="password" id="inputNewPassword" class="form-control" minlength="8" maxlength="20"></td>
-      </tr>
-      <tr>
-          <td><span>Повторите новый пароль</span></td>
-          <td>
-          <div>
-    <input type="password" id="inputConfirmPassword" class="form-control" minlength="8" maxlength="20">
-        <div class="invalid-feed">Пароли не совпадают</div>
-  </div>
-          </td>
-      </tr>
-  </table>
+  
   <br>
   <h3><small>Информация:</small></h3>
   <table class="table">
@@ -581,39 +556,19 @@
   </table>
   <br>
   
-  <button type="submit" id="saveProfile" class="btn btn-danger btn-block">Сохранить профиль</button>
   </form>
   </div>
   </script>
   
-  
-  <!-- about --> 
-  <script id="aboutTemplate" type="text/template">
-  <div class="col-lg-offset-1">  	
-  <h1 class="text-center">О проекте</h1>
-  Расказать о проекте: какие бизнес-задачи решает, какие используются инструменты/технологии и тд.
-  <br>	
-  <br>	
-  <br>	
-  По пунктам:<br>
-  1.) Задачи проекта — Для чего проект был начат?<br>	
-  2.) Цель — Какие результаты нужно получить?<br>	
-  3.) Длительность — Сколько времени было затрачено?<br>	
-  4.) Моя роль — Какой вклад в проект я сделал?<br>	
-  5.) Результат — Изображения/видео или ссылки на скачивание приложения, просмотр прототипа (этот сайт), исходных кодов.<br>	
-  <br>	
-  <br>
-  <br>
-  Добавить функцию удаления согласования и соответствующую инфу (из базы не удаляется, меняется статус).<br>	
-  Показать этапы разработки .	<br>	
-  <br>
-  Обезличить проект и наполнить норм контентом.
-  <br>
-  <br>	
-  <br>	
-  <br>	
-  </div>
-  </script>
+
+  <!-- Loading --> 
+    <script id="loadTemplate" type="text/template">
+      <div class="d-flex justify-content-center" style="height: 100vh">
+        <div class="spinner-grow" style="width: 5rem; height: 5rem; align-items: center;" role="status">
+          <span class="sr-only">Loading...</span>
+        </div>
+      </div>
+    </script>
 
 </body>
 </html>

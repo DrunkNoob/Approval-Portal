@@ -11,7 +11,6 @@ const disableScroll = function() {
   document.body.dataset.position = pagePosition
   document.body.style.top = -pagePosition + 'px'
   document.body.style.paddingRight = 17 + 'px'
-  console.log('scroll off')
 }
 
 const enableScroll = function() {
@@ -34,8 +33,12 @@ function _createModalFooter(buttons = []) {
   buttons.forEach(btn => {
     const $btn = document.createElement('button')
     $btn.textContent = btn.text
+    if (btn.id) {
+      $btn.id = btn.id
+    }
     $btn.classList.add('btn')
     $btn.classList.add(`btn-${btn.type || 'secondary'}`)
+    $btn.disabled = btn.disabled || false
     $btn.onclick = btn.handler || noop
 
     wrap.appendChild($btn)
@@ -118,24 +121,3 @@ export function modal(param) {
     }
   })
 }
-
-
-{/* <div class="modal fade show" id="exampleModalLive" tabindex="-1" role="dialog" aria-labelledby="exampleModalLiveLabel" style="display: block; padding-right: 17px;" aria-modal="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLiveLabel">Modal title</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">×</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <p>Woohoo, you're reading this text in a modal!</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
-    </div>
-  </div>
-</div> */}

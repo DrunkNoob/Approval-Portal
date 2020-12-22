@@ -2,8 +2,37 @@
     "status": "ok",
     "error": null,
     "result": {
-      "loginUser": "Тимур Владимирович Рыба",
-      "idUser": 88,
-      "accessLevel": 1
+      "loginUser": {
+        "secondname": "Рыба",
+        "firstname": "Тимур",
+        "patronymic": "Владимирович"
+      },
+      "idUser": 1,
+      "accessLevel": 1,
+      "otdel": "Карательный",
+      "position": "Менеджер по продажам",
+      "registration": {
+        "positions": [
+          "Менеджер по продажам",
+          "Sourcing Specialist",
+          "Кладовщик",
+          "Каратель",
+          "Экзорцист"
+        ],
+        "otdels": [
+          "Карательный",
+          "Sourcing",
+          "Отдел продаж"
+      ]
+        },
+        "routerList": [
+          "agreement",
+          "auth",
+          "index",
+          "newagreement",
+          "profile",
+          "users",
+          "error"
+        ]
     }
 }

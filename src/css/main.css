@@ -90,7 +90,7 @@ code {
 .modalBase.show .modal-overlay,
 .modalBase.show .modal-window {
   opacity: 1;
-  z-index: 1000;
+  z-index: 1031;
 }
 
 .modalBase.hide .modal-overlay,
@@ -151,3 +151,26 @@ z-index: -1;
 }
 /* Modal
 -------------------------------------------------- */
+
+
+/* Agreement
+-------------------------------------------------- */
+#buttonForm {
+  margin-top: 40px;
+  float: right;
+}
+
+#btnStatus {
+  width: 146px;
+}
+
+#btnComment {
+  width: 146px;
+}
+/* Agreement
+-------------------------------------------------- */
+
+
+#navItemDropdown {
+  cursor: pointer;
+}
