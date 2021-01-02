@@ -1,0 +1,9 @@
+Options -Indexes
+
+<FilesMatch "\.(php)$">
+Deny from all
+</FilesMatch>
+
+<FilesMatch "entry.(php)$">
+Allow from all
+</FilesMatch>
