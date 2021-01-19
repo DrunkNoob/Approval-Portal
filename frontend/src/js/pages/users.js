@@ -3,8 +3,8 @@ import View from '../view.js'
 let items = []
 
 export default {
-  setData(user) {
-    items = user
+  setData(users) {
+    items = users
   },
 
   render(resultsNode) {

@@ -2,14 +2,29 @@
 
 include_once('core/db.php');
 
+function usersExists(int $id_user) {
+    // SELECT COUNT(*) FROM table_name
+    $sql = "SELECT EXISTS(SELECT id_user FROM users WHERE id_user=:id_user)";
+    $query = dbQuery($sql, ['id_user' => $id_user]);
+    return $query->fetch();
+}
+
 function usersAll() : array{
-    $sql = "SELECT * FROM users ORDER BY reg_date DESC";
+    $sql = "SELECT id_user, secondname, firstname, patronymic, email, departments.department, positions.position, accesslevels.accessLevel 
+    FROM users 
+    LEFT JOIN departments ON users.id_dep = departments.id_dep
+    LEFT JOIN positions ON users.id_pos = positions.id_pos 
+    LEFT JOIN accesslevels ON users.id_acc = accesslevels.id_acc
+    ORDER BY id_user DESC";
     $query = dbQuery($sql);
     return $query->fetchAll();
 }
 
 function usersOne(int $id) {
-    $sql = "SELECT * FROM users WHERE id_user=:id";
+    $sql = "SELECT id_user, secondname, firstname, patronymic, email, id_dep, id_pos, accesslevels.accessLevel 
+    FROM users 
+    LEFT JOIN accesslevels ON users.id_acc = accesslevels.id_acc
+    WHERE id_user=:id";
     $query = dbQuery($sql, ['id' => $id]);
     return $query->fetch();
 }
@@ -48,6 +63,6 @@ function usersValidate(array $fields) : array{
     return $errors;
 }
 
-function isValidLen(string $value, int $q = 5, int $b = 200) : bool{
-    return ((mb_strlen($value, 'UTF-8') >= $q) && (mb_strlen($value, 'UTF-8') < $b));
-}
+// function isValidLen(string $value, int $q = 5, int $b = 200) : bool{
+//     return ((mb_strlen($value, 'UTF-8') >= $q) && (mb_strlen($value, 'UTF-8') < $b));
+// }

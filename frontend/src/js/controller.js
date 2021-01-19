@@ -31,31 +31,35 @@ export default {
   async indexRoute() {
     setActiveNavNode(document.querySelector('[data-role=nav-index]'))
     document.getElementById('results').innerHTML = await View.render('load')
-    const index = await Model.fetch('index')
-
-    indexPage.setData(index)
+    // const index = await Model.fetch('index')
+    const main = await Model.toServer({router: 'main'})
+    console.log(main)
+    const agreements = await Model.toServer({router: 'agreements'})
+    indexPage.setData(agreements)
     indexPage.render(document.getElementById('results'))
     setActiveNavNode(document.querySelector('[data-role=nav-index]'))
   },
   async agreementRoute(params) {
     document.getElementById('results').innerHTML = await View.render('load')
-    const agreement = await Model.fetch('agreement')
+    // const agreement = await Model.fetch('agreement')
 
+    const agreement = await Model.toServer({router: 'agreement', params})
+    console.log(agreement)
     agreementPage.setData(agreement)
     agreementPage.render(document.getElementById('results'))
   },
   async usersRoute() {
     document.getElementById('results').innerHTML = await View.render('load')
-    const users = await Model.fetch('users')
-
+    // const users = await Model.fetch('users')
+    const users = await Model.toServer({router: 'users'})
     usersPage.setData(users)
     usersPage.render(document.getElementById('results'))
     setActiveNavNode(document.querySelector('[data-role=nav-users]'))
   },
 
-  async profileRoute() {
+  async profileRoute(params) {
     document.getElementById('results').innerHTML = await View.render('load')
-    const profile = await Model.fetch('profile')
+    const profile = await Model.toServer({router: 'user', params})
 
     profilePage.setData(profile)
     profilePage.render(document.getElementById('results'))
@@ -64,9 +68,9 @@ export default {
 
   async newagreementRoute() {
     document.getElementById('results').innerHTML = await View.render('load')
-    const newagreement = await Model.fetch('newagreement')
+    const newAgreement = await Model.toServer({router: 'main'})
 
-    newagreementPage.setData(newagreement)
+    newagreementPage.setData(newAgreement)
     newagreementPage.render(document.getElementById('results'))
     setActiveNavNode(document.querySelector('[data-role=nav-newagreement]'))
   },

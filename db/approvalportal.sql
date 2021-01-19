@@ -3,6 +3,8 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1
+-- Время создания: Янв 16 2021 г., 20:13
+-- Версия сервера: 10.3.16-MariaDB
 -- Версия PHP: 7.3.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -23,19 +25,19 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `access_level`
+-- Структура таблицы `accesslevels`
 --
 
-CREATE TABLE `access_level` (
+CREATE TABLE `accesslevels` (
   `id_acc` tinyint(4) UNSIGNED NOT NULL,
-  `title` varchar(32) NOT NULL
+  `accessLevel` varchar(32) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Дамп данных таблицы `access_level`
+-- Дамп данных таблицы `accesslevels`
 --
 
-INSERT INTO `access_level` (`id_acc`, `title`) VALUES
+INSERT INTO `accesslevels` (`id_acc`, `accessLevel`) VALUES
 (1, 'Администратор'),
 (2, 'Пользователь'),
 (3, 'Заблокирован');
@@ -63,32 +65,33 @@ CREATE TABLE `agreements` (
   `id_risk` tinyint(3) UNSIGNED NOT NULL DEFAULT 3,
   `creator_agr` smallint(8) UNSIGNED NOT NULL,
   `creation_date` timestamp NOT NULL DEFAULT current_timestamp(),
-  `status_agr` tinyint(1) NOT NULL DEFAULT 0
+  `id_status` tinyint(1) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Дамп данных таблицы `agreements`
 --
 
-INSERT INTO `agreements` (`id_agr`, `id_typ`, `id_cat`, `price`, `contract_num`, `contract_date`, `contract_sub`, `dep_res`, `contract_own`, `contract_adm`, `inn`, `verification`, `reason_ver`, `id_risk`, `creator_agr`, `creation_date`, `status_agr`) VALUES
-(1, 1, 2, 100000, '285028', '2020-12-01 00:07:12', 'Интернеты в туалеты', 2, 4, 3, '1216775', 1, NULL, 1, 1, '2020-12-28 17:31:18', 0);
+INSERT INTO `agreements` (`id_agr`, `id_typ`, `id_cat`, `price`, `contract_num`, `contract_date`, `contract_sub`, `dep_res`, `contract_own`, `contract_adm`, `inn`, `verification`, `reason_ver`, `id_risk`, `creator_agr`, `creation_date`, `id_status`) VALUES
+(1, 1, 2, 100000, '285028', '2020-11-30 21:07:12', 'Интернеты в туалеты', 2, 4, 3, '1216775', 1, NULL, 1, 1, '2020-12-28 14:31:18', 1),
+(2, 1, 2, 9599432, '961247', '2021-01-11 20:04:02', 'Пельмеши для рабочих', 2, 5, 4, '3142399', 0, NULL, 2, 7, '2021-01-11 20:04:02', 1);
 
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `category`
+-- Структура таблицы `categories`
 --
 
-CREATE TABLE `category` (
+CREATE TABLE `categories` (
   `id_cat` tinyint(3) UNSIGNED NOT NULL,
-  `title` varchar(32) NOT NULL
+  `category` varchar(32) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Дамп данных таблицы `category`
+-- Дамп данных таблицы `categories`
 --
 
-INSERT INTO `category` (`id_cat`, `title`) VALUES
+INSERT INTO `categories` (`id_cat`, `category`) VALUES
 (1, 'Закупки для целей монтажа'),
 (2, 'Иные закупки');
 
@@ -100,17 +103,17 @@ INSERT INTO `category` (`id_cat`, `title`) VALUES
 
 CREATE TABLE `departments` (
   `id_dep` tinyint(3) UNSIGNED NOT NULL,
-  `title` varchar(64) NOT NULL
+  `department` varchar(64) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Дамп данных таблицы `departments`
 --
 
-INSERT INTO `departments` (`id_dep`, `title`) VALUES
+INSERT INTO `departments` (`id_dep`, `department`) VALUES
 (1, 'Карательный'),
 (2, 'Sourcing'),
-(3, 'Отдел продаж\r\n');
+(3, 'Отдел продаж');
 
 -- --------------------------------------------------------
 
@@ -120,18 +123,18 @@ INSERT INTO `departments` (`id_dep`, `title`) VALUES
 
 CREATE TABLE `positions` (
   `id_pos` tinyint(4) UNSIGNED NOT NULL,
-  `title` varchar(64) NOT NULL
+  `position` varchar(64) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Дамп данных таблицы `positions`
 --
 
-INSERT INTO `positions` (`id_pos`, `title`) VALUES
+INSERT INTO `positions` (`id_pos`, `position`) VALUES
 (1, 'Менеджер по продажам'),
 (2, 'Sourcing Specialist'),
 (3, 'Кладовщик'),
-(4, 'Каратель\r\n'),
+(4, 'Каратель'),
 (5, 'Экзорцист');
 
 -- --------------------------------------------------------
@@ -141,28 +144,42 @@ INSERT INTO `positions` (`id_pos`, `title`) VALUES
 --
 
 CREATE TABLE `reviewers` (
-  `status` tinyint(1) NOT NULL DEFAULT 0,
+  `status` tinyint(1) NOT NULL DEFAULT 1,
   `comment` text DEFAULT NULL,
   `id_agr` int(10) UNSIGNED NOT NULL,
   `id_user` smallint(5) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Дамп данных таблицы `reviewers`
+--
+
+INSERT INTO `reviewers` (`status`, `comment`, `id_agr`, `id_user`) VALUES
+(1, NULL, 1, 5),
+(1, NULL, 1, 4),
+(1, NULL, 1, 2),
+(1, NULL, 1, 1),
+(2, NULL, 2, 6),
+(1, NULL, 2, 5),
+(2, NULL, 2, 3),
+(1, NULL, 2, 2);
+
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `risk`
+-- Структура таблицы `risks`
 --
 
-CREATE TABLE `risk` (
+CREATE TABLE `risks` (
   `id_risk` tinyint(3) UNSIGNED NOT NULL,
-  `title` varchar(32) NOT NULL
+  `risk` varchar(32) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Дамп данных таблицы `risk`
+-- Дамп данных таблицы `risks`
 --
 
-INSERT INTO `risk` (`id_risk`, `title`) VALUES
+INSERT INTO `risks` (`id_risk`, `risk`) VALUES
 (1, 'Низкая'),
 (2, 'Средняя'),
 (3, 'Высокая');
@@ -183,19 +200,38 @@ CREATE TABLE `sessions` (
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `type`
+-- Структура таблицы `status_agr`
 --
 
-CREATE TABLE `type` (
+CREATE TABLE `status_agr` (
+  `id_status` tinyint(1) NOT NULL,
+  `status` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Дамп данных таблицы `status_agr`
+--
+
+INSERT INTO `status_agr` (`id_status`, `status`) VALUES
+(1, 'Не согласовано'),
+(2, 'Согласовано');
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `types`
+--
+
+CREATE TABLE `types` (
   `id_typ` tinyint(3) UNSIGNED NOT NULL,
-  `title` varchar(32) NOT NULL
+  `type` varchar(32) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Дамп данных таблицы `type`
+-- Дамп данных таблицы `types`
 --
 
-INSERT INTO `type` (`id_typ`, `title`) VALUES
+INSERT INTO `types` (`id_typ`, `type`) VALUES
 (1, 'Разовые закупки'),
 (2, 'Рамочные соглашения');
 
@@ -223,22 +259,22 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id_user`, `secondname`, `firstname`, `patronymic`, `email`, `password`, `reg_date`, `id_dep`, `id_pos`, `id_acc`) VALUES
-(1, 'Яковенко', 'Данил', 'Юрьевич', 'danil.yakovenko@outlook.com', '123456', '2020-12-28 14:44:32', 1, 4, 1),
-(2, 'Иванов', 'Владимир', 'Игоревич', 'vladimir.ivanov@test.com', '123456', '2020-12-28 14:44:32', 2, 2, 1),
-(3, 'Петрова', 'Анастасия', 'Юрьевна', 'anastasia.petrova@test.com', '123456', '2020-12-28 14:46:33', 2, 2, 2),
-(4, 'Иванов', 'Иван', 'Иванович', 'ivanovivan@mail.ru', '123456', '2020-12-28 14:46:33', 1, 3, 3),
-(5, 'Петров', 'Петр', 'Петрович', 'petrovpetr@yandex.com', '123456', '2020-12-28 14:48:10', 3, 1, 2),
-(6, 'Алексеев', 'Алексей', 'Алексеевич', 'alexeyale@yandex.com', '123456', '2020-12-28 14:48:10', 3, 1, 2),
-(7, 'Странный', 'Сергей', 'Сергеевич', 'eererer@test.ru', '123456', '2020-12-28 14:48:51', 1, 5, 2);
+(1, 'Яковенко', 'Данил', 'Юрьевич', 'danil.yakovenko@outlook.com', '123456', '2020-12-28 11:44:32', 1, 4, 1),
+(2, 'Иванов', 'Владимир', 'Игоревич', 'vladimir.ivanov@test.com', '123456', '2020-12-28 11:44:32', 2, 2, 1),
+(3, 'Петрова', 'Анастасия', 'Юрьевна', 'anastasia.petrova@test.com', '123456', '2020-12-28 11:46:33', 2, 2, 2),
+(4, 'Иванов', 'Иван', 'Иванович', 'ivanovivan@mail.ru', '123456', '2020-12-28 11:46:33', 1, 3, 3),
+(5, 'Петров', 'Петр', 'Петрович', 'petrovpetr@yandex.com', '123456', '2020-12-28 11:48:10', 3, 1, 2),
+(6, 'Алексеев', 'Алексей', 'Алексеевич', 'alexeyale@yandex.com', '123456', '2020-12-28 11:48:10', 3, 1, 2),
+(7, 'Странный', 'Сергей', 'Сергеевич', 'eererer@test.ru', '123456', '2020-12-28 11:48:51', 1, 5, 2);
 
 --
 -- Индексы сохранённых таблиц
 --
 
 --
--- Индексы таблицы `access_level`
+-- Индексы таблицы `accesslevels`
 --
-ALTER TABLE `access_level`
+ALTER TABLE `accesslevels`
   ADD PRIMARY KEY (`id_acc`),
   ADD UNIQUE KEY `id_acc` (`id_acc`),
   ADD KEY `id_acc_2` (`id_acc`),
@@ -260,12 +296,12 @@ ALTER TABLE `agreements`
   ADD KEY `verification` (`verification`),
   ADD KEY `id_risk` (`id_risk`),
   ADD KEY `creator_agr` (`creator_agr`),
-  ADD KEY `status_agr` (`status_agr`);
+  ADD KEY `status_agr` (`id_status`);
 
 --
--- Индексы таблицы `category`
+-- Индексы таблицы `categories`
 --
-ALTER TABLE `category`
+ALTER TABLE `categories`
   ADD PRIMARY KEY (`id_cat`);
 
 --
@@ -288,9 +324,9 @@ ALTER TABLE `reviewers`
   ADD KEY `id_user` (`id_user`);
 
 --
--- Индексы таблицы `risk`
+-- Индексы таблицы `risks`
 --
-ALTER TABLE `risk`
+ALTER TABLE `risks`
   ADD PRIMARY KEY (`id_risk`);
 
 --
@@ -302,9 +338,15 @@ ALTER TABLE `sessions`
   ADD KEY `id_sessions` (`id_sessions`);
 
 --
--- Индексы таблицы `type`
+-- Индексы таблицы `status_agr`
 --
-ALTER TABLE `type`
+ALTER TABLE `status_agr`
+  ADD PRIMARY KEY (`id_status`);
+
+--
+-- Индексы таблицы `types`
+--
+ALTER TABLE `types`
   ADD PRIMARY KEY (`id_typ`);
 
 --
@@ -322,21 +364,21 @@ ALTER TABLE `users`
 --
 
 --
--- AUTO_INCREMENT для таблицы `access_level`
+-- AUTO_INCREMENT для таблицы `accesslevels`
 --
-ALTER TABLE `access_level`
+ALTER TABLE `accesslevels`
   MODIFY `id_acc` tinyint(4) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT для таблицы `agreements`
 --
 ALTER TABLE `agreements`
-  MODIFY `id_agr` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_agr` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT для таблицы `category`
+-- AUTO_INCREMENT для таблицы `categories`
 --
-ALTER TABLE `category`
+ALTER TABLE `categories`
   MODIFY `id_cat` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
@@ -352,9 +394,9 @@ ALTER TABLE `positions`
   MODIFY `id_pos` tinyint(4) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- AUTO_INCREMENT для таблицы `risk`
+-- AUTO_INCREMENT для таблицы `risks`
 --
-ALTER TABLE `risk`
+ALTER TABLE `risks`
   MODIFY `id_risk` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
@@ -364,9 +406,15 @@ ALTER TABLE `sessions`
   MODIFY `id_sessions` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT для таблицы `type`
+-- AUTO_INCREMENT для таблицы `status_agr`
 --
-ALTER TABLE `type`
+ALTER TABLE `status_agr`
+  MODIFY `id_status` tinyint(1) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT для таблицы `types`
+--
+ALTER TABLE `types`
   MODIFY `id_typ` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
@@ -383,9 +431,9 @@ ALTER TABLE `users`
 -- Ограничения внешнего ключа таблицы `agreements`
 --
 ALTER TABLE `agreements`
-  ADD CONSTRAINT `agreements_ibfk_1` FOREIGN KEY (`id_cat`) REFERENCES `category` (`id_cat`),
-  ADD CONSTRAINT `agreements_ibfk_2` FOREIGN KEY (`id_typ`) REFERENCES `type` (`id_typ`),
-  ADD CONSTRAINT `agreements_ibfk_3` FOREIGN KEY (`id_risk`) REFERENCES `risk` (`id_risk`),
+  ADD CONSTRAINT `agreements_ibfk_1` FOREIGN KEY (`id_cat`) REFERENCES `categories` (`id_cat`),
+  ADD CONSTRAINT `agreements_ibfk_2` FOREIGN KEY (`id_typ`) REFERENCES `types` (`id_typ`),
+  ADD CONSTRAINT `agreements_ibfk_3` FOREIGN KEY (`id_risk`) REFERENCES `risks` (`id_risk`),
   ADD CONSTRAINT `agreements_ibfk_4` FOREIGN KEY (`dep_res`) REFERENCES `departments` (`id_dep`),
   ADD CONSTRAINT `agreements_ibfk_5` FOREIGN KEY (`creator_agr`) REFERENCES `users` (`id_user`),
   ADD CONSTRAINT `agreements_ibfk_6` FOREIGN KEY (`contract_own`) REFERENCES `users` (`id_user`) ON UPDATE NO ACTION,
@@ -402,7 +450,7 @@ ALTER TABLE `reviewers`
 -- Ограничения внешнего ключа таблицы `users`
 --
 ALTER TABLE `users`
-  ADD CONSTRAINT `users_ibfk_1` FOREIGN KEY (`id_acc`) REFERENCES `access_level` (`id_acc`) ON UPDATE NO ACTION,
+  ADD CONSTRAINT `users_ibfk_1` FOREIGN KEY (`id_acc`) REFERENCES `accesslevels` (`id_acc`) ON UPDATE NO ACTION,
   ADD CONSTRAINT `users_ibfk_2` FOREIGN KEY (`id_dep`) REFERENCES `departments` (`id_dep`) ON UPDATE NO ACTION,
   ADD CONSTRAINT `users_ibfk_3` FOREIGN KEY (`id_pos`) REFERENCES `positions` (`id_pos`) ON UPDATE NO ACTION;
 COMMIT;

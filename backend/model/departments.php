@@ -7,3 +7,9 @@ function departmentsAll() : array{
     $query = dbQuery($sql);
     return $query->fetchAll();
 }
+
+function departmentsOne(int $id) {
+    $sql = "SELECT title FROM departments WHERE id_dep=:id";
+    $query = dbQuery($sql, ['id' => $id]);
+    return $query->fetch();
+}

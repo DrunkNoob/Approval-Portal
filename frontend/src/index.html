@@ -66,7 +66,7 @@
 
     <footer class="footer mt-auto py-3">
       <div class="container">
-        <span class="text-muted">Портал согласования 2020.</span>
+        <span class="text-muted">Портал согласования 2020-2021.</span>
       </div>
     </footer>
   </script>
@@ -79,7 +79,7 @@
     <h1 class="text-center">Реестр согласований:</h1><br>
   <div class="alert alert-info alert-dismissible" role="alert">
     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-    Для просмотра согласования и загрузки <strong>PDF</strong> выберите номер договора и нажмите на "<strong>Посмотреть согласование</strong>".
+    Для просмотра согласования и загрузки <strong>PDF</strong> выберите номер договора.
   </div>
     <form>
       
@@ -99,8 +99,8 @@
           </tr> 
         
           <div id="content">
-         {{#each result/agreement}}
-       <tr class="tableSubmit" id="{{id}}"><td>{{ndog}}</td><td>{{dated}}</td><td>{{pdog}}</td><td>{{otdels}}</td><td>{{vfio}}</td><td>{{afio}}</td><td>{{inn}}</td><td>{{risk}}</td><td>{{soglass}}</td></tr>
+         {{#each result/agreements}}
+       <tr class="tableSubmit" id="{{contract_num}}"><td>{{contract_num}}</td><td>{{contract_date}}</td><td>{{contract_sub}}</td><td>{{department}}</td><td>{{contract_own}}</td><td>{{contract_adm}}</td><td>{{inn}}</td><td>{{risk}}</td><td>{{status}}</td></tr>
        {{/each}}
        </div>
         </table>
@@ -118,7 +118,7 @@
   <h1 class="text-center">Согласование договора закупки №{{ result/ndog }}</h1>	
   <div class="alert alert-info alert-dismissible" role="alert">
   <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-  <strong>Создатель данного согласования: {{ result/creator }}</strong>
+  <strong>Создатель данного согласования: {{ result/creator_agr }} ({{ result/creation_date }})</strong>
   </div>	
   
   <form id="agreement-form">
@@ -127,22 +127,22 @@
   <table class="table">
     <tr>
           <td><span>Вид соглашения</span></td>
-          <td><label name="type">{{ result/type }}</label></td>
+          <td><label>{{ result/type }}</label></td>
       </tr>	
     <tr>
           <td><span>Категория</span></td>
-          <td><label name="category">{{ result/category }}</label></td>
+          <td><label>{{ result/category }}</label></td>
       </tr>
       <tr>
           <td><span>Ежегодный оборот по договору (RUB)</span></td>
-          <td><label name="valuationprice">{{ result/valuationprice }}</label></td>
+          <td><label>{{ result/price }}</label></td>
       </tr>	
       <tr>
           <td><span>Номер договора</span></td>
           <td>
           <div>
       <div class="input-group">
-        <input name="ndog" type="label" class="form-control" placeholder="{{ result/ndog }}" disabled="disabled">
+        <input type="label" class="form-control" placeholder="{{ result/contract_num }}" disabled="disabled">
         <div class="input-group-btn">
           <button type="button" class="btn btn-outline-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Посмотреть договор <span class="caret"></span></button>
           <ul class="dropdown-menu dropdown-menu-right">
@@ -157,11 +157,11 @@
       </tr>
       <tr>
           <td><span>Дата договора</span></td>
-          <td><label name="data">{{ result/dated }}</label></td>
+          <td><label>{{ result/contract_date }}</label></td>
       </tr>
       <tr>
           <td><span>Предмет договора (описание закупаемых товаров, работ, услуг)</span></td>
-          <td><label name="pdog">{{ result/pdog }}</label></td>
+          <td><label>{{ result/contract_sub }}</label></td>
       </tr>
   </table>
   <br>
@@ -170,15 +170,15 @@
   <table class="table">
       <tr>
           <td>Отдел, инициирующий заключение договора</td>
-          <td><label name="otdel">{{ result/otdels }}</label></td>
+          <td><label>{{ result/department }}</label></td>
       </tr>
       <tr>
           <td>Владелец договора (ФИО, должность)</td>
-          <td><label name="afio">{{ result/vfio/secondname }} {{ result/vfio/firstname }} {{ result/vfio/patronymic }} ({{ result/vfio/position }})</label></td>
+          <td><label>{{ result/contract_own }}</label></td>
       </tr>
       <tr>
           <td>Администратор договора (ФИО, должность)</td>
-          <td><label name="afio">{{ result/afio/secondname }} {{ result/afio/firstname }} {{ result/afio/patronymic }} ({{ result/afio/position }})</label></td>
+          <td><label>{{ result/contract_adm }}</label></td>
       </tr>
   
   </table>
@@ -187,19 +187,19 @@
   <table class="table">
       <tr>
           <td>Сторона договора (наименование, ИНН или ОГРН)</td>
-          <td><label name="inn">{{ result/inn }}</label></td>
+          <td><label>{{ result/inn }}</label></td>
       </tr>
       <tr>
           <td>Проверка контрагента</td>
-          <td><label name="prov">{{ result/prov }}</label></td>
+          <td><label>{{ result/verification }}</label></td>
       </tr>						
       <tr>
           <td>Причина не выполнения проверки</td>
-          <td><label name="pprov">{{ result/pprov }}</label></td>
+          <td><label>{{ result/reason_ver }}</label></td>
       </tr>
       <tr>
           <td>Степень риска по контрагенту</td>
-          <td><label name="risk">{{ result/risk }}</label></td>
+          <td><label>{{ result/risk }}</label></td>
       </tr>
   </table>
   <br>
@@ -376,13 +376,13 @@
           <th>Email</th>
           </tr> <!--ряд с ячейками заголовков-->
     {{#each result/users}}
-      <tr  class="tableSubmit" id="{{id}}">
-        <td>{{id}}</td>
+      <tr  class="tableSubmit" id="{{id_user}}">
+        <td>{{id_user}}</td>
         <td>{{secondname}} {{firstname}} {{patronymic}}</td>
-        <td>{{role}}</td>
+        <td>{{accessLevel}}</td>
         <td>{{position}}</td>
-        <td>{{otdel}}</td>
-        <td><a href="mailto:{{email}}">{{email}}</a></td>
+        <td>{{department}}</td>
+        <td><a href="mailto:{{email}}">{{email}}</a></>
       </tr>
     {{/each}}
           </div>
@@ -543,7 +543,7 @@
   <table class="table">
       <tr>
           <td><span>id</span></td>
-          <td><label>{{result/id}}</label></td>
+          <td><label>{{result/id_user}}</label></td>
       </tr>
       <tr>
           <td><span>Роль</span></td>

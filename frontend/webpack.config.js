@@ -44,7 +44,15 @@ module.exports = {
   devtool: isDev ? 'source-map' : false,
   devServer: {
     port: 5000,
-    hot: isDev
+    hot: isDev,
+    overlay: true,
+    proxy: {
+      '/**': {
+        target: 'http://localhost/ApprovalPortal/backend/',
+        secure: false,
+        changeOrigin: true
+      }
+    }
   },
   plugins: [
     new CleanWebpackPlugin(),

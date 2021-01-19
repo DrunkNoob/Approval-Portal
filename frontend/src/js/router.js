@@ -5,9 +5,9 @@ import Controller from './controller.js'
 function getRouteInfo() {
   const hash = location.hash ? location.hash.slice(1) : 'index'
   console.log('hash: ', hash)
-  const [name, id] = hash.split('/')
+  const [name, params] = hash.split('/')
 
-  return {name, params: {id}}
+  return {name, params}
 }
 
 function handleHash() {

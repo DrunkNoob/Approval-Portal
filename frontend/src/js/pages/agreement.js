@@ -21,7 +21,7 @@ export default {
 function pageScript(main) {
   const agreementForm = document.getElementById('agreement-form')
   const reviewerTable = agreementForm.querySelector('#reviewer-table').querySelector('tbody')
-  const reviewers = items.result.reviewer
+  const reviewers = items.result.reviewers
   const VALID_COMMENT = 8
 
   // Создание меню формы
@@ -128,25 +128,28 @@ function pageScript(main) {
   // Функция рендера таблицы "Согласующие"
   function render() {
     reviewers.forEach(function(elem, i) {
+      console.log(reviewers[i].status_rev)
+      // reviewers[i].status = !!reviewers[i].status
+      // reviewers[i].status_rev = !!reviewers[i].status_rev
       // Проверка, согласующего (просматривает странице человек который есть в списке согласующих (может оставить коментарий или согласовать) или нет)
-      if (main.result.idUser === items.result.reviewer[i].id) {
+      if (main.result.idUser == reviewers[i].id_user) {
         // Если пользователь просматривающий страницу является согласующим (может оставить комментарий)
         reviewers[i].commentInsert = `
-        <button id="btnComment" class="btn btn-warning" data-comment="${reviewers[i].comment.length > 0 ? 'true' : 'false'}" data-btn="commentEdit" data-id="${reviewers[i].id}">Комментарий</button>
+        <button id="btnComment" class="btn btn-warning" data-comment="${reviewers[i].comment !=null ? 'true' : 'false'}" data-btn="commentEdit" data-id="${reviewers[i].id_user}">Комментарий</button>
         `
 
         reviewers[i].statusBtn = `
-        <button type="button" id="btnStatus" class="btn btn-${reviewers[i].status ? 'success' : 'danger'}" data-status="${reviewers[i].status ? 'true' : 'false'}" data-btn="statusBtn" data-id="${reviewers[i].id}">${reviewers[i].status ? 'Согласовано' : 'Не согласовано'}</button>
+        <button type="button" id="btnStatus" class="btn btn-${reviewers[i].status ? 'success' : 'danger'}" data-status="${reviewers[i].status ? 'true' : 'false'}" data-btn="statusBtn" data-id="${reviewers[i].id_user}">${reviewers[i].status ? 'Согласовано' : 'Не согласовано'}</button>
         `
       } else {
         // Если пользователь просматривающий страницу НЕ является согласующим (может просмотреть комментарий, не может согласовать)
-        if (reviewers[i].comment.length === 0) {
+        if (reviewers[i].comment == null) {
           reviewers[i].commentInsert = 'Отсутствует'
         } else if (reviewers[i].comment.length < 20) {
           reviewers[i].commentInsert = reviewers[i].comment
         } else {
           reviewers[i].commentInsert = `
-          <button id="btnComment" class="btn btn-primary" data-btn="commentView" data-id="${reviewers[i].id}">Комментарий</button>
+          <button id="btnComment" class="btn btn-primary" data-btn="commentView" data-id="${reviewers[i].id_user}">Комментарий</button>
           `
         }
 
@@ -162,8 +165,8 @@ function pageScript(main) {
   // Шаблон формирует Согласующих
   const toHTML = reviewer => `
   <tr>
-  <td><label>${reviewer.statusu}</label></td>
-  <td>${reviewer.secondname} ${reviewer.firstname} ${reviewer.patronymic} (${reviewer.otdel}/${reviewer.position})</td>
+  <td><label>${reviewer.status_rev ? 'A' : 'R'}</label></td>
+  <td>${reviewer.reviewer}</td>
   <td>
   ${reviewer.statusBtn}
   </td>
@@ -277,7 +280,7 @@ function pageScript(main) {
   // Отслеживание нажатий по таблице "Согласующие"
   reviewerTable.addEventListener('click', event => {
     event.preventDefault()
-    const reviewer = reviewers.find(r => r.id === +event.target.dataset.id)
+    const reviewer = reviewers.find(r => r.id_rev == event.target.dataset.id)
 
 
     // Функция таймера кнопки "Согласовать"
