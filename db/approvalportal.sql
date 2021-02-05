@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1
--- Время создания: Янв 16 2021 г., 20:13
+-- Время создания: Фев 05 2021 г., 18:31
 -- Версия сервера: 10.3.16-MariaDB
 -- Версия PHP: 7.3.6
 
@@ -73,8 +73,11 @@ CREATE TABLE `agreements` (
 --
 
 INSERT INTO `agreements` (`id_agr`, `id_typ`, `id_cat`, `price`, `contract_num`, `contract_date`, `contract_sub`, `dep_res`, `contract_own`, `contract_adm`, `inn`, `verification`, `reason_ver`, `id_risk`, `creator_agr`, `creation_date`, `id_status`) VALUES
-(1, 1, 2, 100000, '285028', '2020-11-30 21:07:12', 'Интернеты в туалеты', 2, 4, 3, '1216775', 1, NULL, 1, 1, '2020-12-28 14:31:18', 1),
-(2, 1, 2, 9599432, '961247', '2021-01-11 20:04:02', 'Пельмеши для рабочих', 2, 5, 4, '3142399', 0, NULL, 2, 7, '2021-01-11 20:04:02', 1);
+(1, 1, 2, 100000, '285028', '2020-11-30 18:07:12', 'Интернеты в туалеты', 2, 4, 3, '1216775', 1, NULL, 1, 1, '2020-12-28 11:31:18', 1),
+(2, 1, 2, 9599432, '961247', '2021-01-11 17:04:02', 'Пельмеши для рабочих', 2, 5, 4, '3142399', 0, NULL, 2, 7, '2021-01-11 17:04:02', 1),
+(3, 1, 2, 5486219, '1861168', '2020-11-30 18:07:12', 'Мдамкек', 2, 2, 2, '12548515', 1, NULL, 1, 1, '2021-01-23 09:51:09', 1),
+(4, 1, 2, 5486219, '7268078', '2020-11-30 18:07:12', 'Мдамкек', 2, 2, 2, '12548515', 1, NULL, 1, 1, '2021-01-23 16:21:32', 1),
+(5, 1, 2, 5486219, '3810466', '2020-11-30 18:07:12', 'Мдамкек', 2, 2, 2, '12548515', 1, NULL, 1, 1, '2021-02-05 14:35:40', 1);
 
 -- --------------------------------------------------------
 
@@ -144,6 +147,7 @@ INSERT INTO `positions` (`id_pos`, `position`) VALUES
 --
 
 CREATE TABLE `reviewers` (
+  `id_rev` int(10) UNSIGNED NOT NULL,
   `status` tinyint(1) NOT NULL DEFAULT 1,
   `comment` text DEFAULT NULL,
   `id_agr` int(10) UNSIGNED NOT NULL,
@@ -154,15 +158,22 @@ CREATE TABLE `reviewers` (
 -- Дамп данных таблицы `reviewers`
 --
 
-INSERT INTO `reviewers` (`status`, `comment`, `id_agr`, `id_user`) VALUES
-(1, NULL, 1, 5),
-(1, NULL, 1, 4),
-(1, NULL, 1, 2),
-(1, NULL, 1, 1),
-(2, NULL, 2, 6),
-(1, NULL, 2, 5),
-(2, NULL, 2, 3),
-(1, NULL, 2, 2);
+INSERT INTO `reviewers` (`id_rev`, `status`, `comment`, `id_agr`, `id_user`) VALUES
+(1, 1, NULL, 1, 5),
+(2, 1, NULL, 1, 4),
+(3, 1, NULL, 1, 2),
+(4, 1, NULL, 1, 1),
+(5, 2, NULL, 2, 6),
+(6, 1, NULL, 2, 5),
+(7, 2, NULL, 2, 3),
+(8, 1, NULL, 2, 2),
+(9, 1, NULL, 3, 18),
+(10, 1, NULL, 3, 22),
+(11, 1, NULL, 4, 8),
+(12, 1, NULL, 4, 6),
+(13, 1, NULL, 5, 1),
+(14, 1, NULL, 5, 2),
+(15, 1, NULL, 5, 3);
 
 -- --------------------------------------------------------
 
@@ -259,13 +270,27 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id_user`, `secondname`, `firstname`, `patronymic`, `email`, `password`, `reg_date`, `id_dep`, `id_pos`, `id_acc`) VALUES
-(1, 'Яковенко', 'Данил', 'Юрьевич', 'danil.yakovenko@outlook.com', '123456', '2020-12-28 11:44:32', 1, 4, 1),
-(2, 'Иванов', 'Владимир', 'Игоревич', 'vladimir.ivanov@test.com', '123456', '2020-12-28 11:44:32', 2, 2, 1),
-(3, 'Петрова', 'Анастасия', 'Юрьевна', 'anastasia.petrova@test.com', '123456', '2020-12-28 11:46:33', 2, 2, 2),
-(4, 'Иванов', 'Иван', 'Иванович', 'ivanovivan@mail.ru', '123456', '2020-12-28 11:46:33', 1, 3, 3),
-(5, 'Петров', 'Петр', 'Петрович', 'petrovpetr@yandex.com', '123456', '2020-12-28 11:48:10', 3, 1, 2),
-(6, 'Алексеев', 'Алексей', 'Алексеевич', 'alexeyale@yandex.com', '123456', '2020-12-28 11:48:10', 3, 1, 2),
-(7, 'Странный', 'Сергей', 'Сергеевич', 'eererer@test.ru', '123456', '2020-12-28 11:48:51', 1, 5, 2);
+(1, 'Яковенко', 'Данил', 'Юрьевич', 'danil.yakovenko@outlook.com', '123456', '2020-12-28 08:44:32', 1, 4, 1),
+(2, 'Иванов', 'Владимир', 'Игоревич', 'vladimir.ivanov@test.com', '123456', '2020-12-28 08:44:32', 2, 2, 1),
+(3, 'Петрова', 'Анастасия', 'Юрьевна', 'anastasia.petrova@test.com', '123456', '2020-12-28 08:46:33', 2, 2, 2),
+(4, 'Иванов', 'Иван', 'Иванович', 'ivanovivan@mail.ru', '123456', '2020-12-28 08:46:33', 1, 3, 3),
+(5, 'Петров', 'Петр', 'Петрович', 'petrovpetr@yandex.com', '123456', '2020-12-28 08:48:10', 3, 1, 2),
+(6, 'Алексеев', 'Алексей', 'Алексеевич', 'alexeyale@yandex.com', '123456', '2020-12-28 08:48:10', 3, 1, 2),
+(7, 'Странный', 'Сергей', 'Сергеевич', 'eererer@test.ru', '123456', '2020-12-28 08:48:51', 1, 5, 2),
+(8, 'ttt', 'ggggg', 'trtrttrrt', 'ttgtgtgtg@gtgtgt.ru', '544t45g45g', '2021-01-22 22:30:44', 2, 4, 1),
+(14, 'ttt', 'ggggg', 'trtrttrrt', 'uyyuyuyuyu@iiuiu.ru', '544t45g45g', '2021-01-27 18:20:52', 2, 4, 1),
+(16, 'ttt', 'ggggg', 'trtrttrrt', 'hyhyhyhyhy@mail.ru', '544t45g45g', '2021-01-27 18:24:54', 2, 4, 1),
+(18, 'ttt', 'ggggg', 'trtrttrrt', 'wxswwxwxw@mail.ru', '544t45g45g', '2021-01-27 18:26:49', 2, 4, 1),
+(19, 'ttt', 'ggggg', 'trtrttrrt', 'zazqzqzq@mail.ru', '544t45g45g', '2021-01-27 18:26:54', 2, 4, 1),
+(20, 'ttt', 'ggggg', 'trtrttrrt', 'zazquhzqzq@mail.ru', '544t45g45g', '2021-01-27 18:28:27', 2, 4, 1),
+(22, 'ttt', 'ggggg', 'trtrttrrt', 'zazq9898zqzq@mail.ru', '544t45g45g', '2021-01-27 18:29:20', 2, 4, 1),
+(23, 'ttt', 'ggggg', 'trtrttrrt', 'zazq9898777zqzq@mail.ru', '544t45g45g', '2021-01-27 18:37:29', 2, 4, 1),
+(24, 'ttt', 'ggggg', 'trtrttrrt', 'zazq9898777dfzqzq@mail.ru', '544t45g45g', '2021-01-27 18:38:10', 2, 4, 1),
+(25, 'ttt', 'ggggg', 'trtrttrrt', 'zazq414149898777dfzqzq@mail.ru', '544t45g45g', '2021-01-28 10:25:06', 2, 4, 1),
+(27, 'ttt', 'ggggg', 'trtrttrrt', 'zazq41441414149898777dfzqzq@mail', '544t45g45g', '2021-01-28 10:25:40', 2, 4, 1),
+(28, 'ttt', 'ggggg', 'trtrttrrt', 'z98777dfzqzq@mail.ru', '544t45g45g', '2021-02-03 21:40:56', 2, 4, 1),
+(29, 'ttt', 'Тимур', 'trtrttrrt', 'timur@mail.ru', '544t45g45g', '2021-02-04 16:50:57', 2, 4, 1),
+(30, 'ttt', 'Артур', 'trtrttrrt', 'artur@mail.ru', '544t45g45g', '2021-02-04 16:51:23', 2, 4, 1);
 
 --
 -- Индексы сохранённых таблиц
@@ -285,6 +310,7 @@ ALTER TABLE `accesslevels`
 --
 ALTER TABLE `agreements`
   ADD PRIMARY KEY (`id_agr`),
+  ADD UNIQUE KEY `contract_num_2` (`contract_num`),
   ADD KEY `id_typ` (`id_typ`),
   ADD KEY `id_cat` (`id_cat`),
   ADD KEY `contract_num` (`contract_num`),
@@ -320,6 +346,7 @@ ALTER TABLE `positions`
 -- Индексы таблицы `reviewers`
 --
 ALTER TABLE `reviewers`
+  ADD PRIMARY KEY (`id_rev`),
   ADD KEY `id_agr` (`id_agr`),
   ADD KEY `id_user` (`id_user`);
 
@@ -373,7 +400,7 @@ ALTER TABLE `accesslevels`
 -- AUTO_INCREMENT для таблицы `agreements`
 --
 ALTER TABLE `agreements`
-  MODIFY `id_agr` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_agr` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT для таблицы `categories`
@@ -392,6 +419,12 @@ ALTER TABLE `departments`
 --
 ALTER TABLE `positions`
   MODIFY `id_pos` tinyint(4) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT для таблицы `reviewers`
+--
+ALTER TABLE `reviewers`
+  MODIFY `id_rev` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT для таблицы `risks`
@@ -421,7 +454,7 @@ ALTER TABLE `types`
 -- AUTO_INCREMENT для таблицы `users`
 --
 ALTER TABLE `users`
-  MODIFY `id_user` smallint(5) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id_user` smallint(5) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- Ограничения внешнего ключа сохраненных таблиц

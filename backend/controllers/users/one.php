@@ -3,7 +3,7 @@
 include_once('model/users.php');
 include_once('view.php');
 
-    // $num = 285028;
+
     $id_user = (int)NUM_PARAMS;
     $exists = usersExists($id_user);
     $exists = array_values($exists);

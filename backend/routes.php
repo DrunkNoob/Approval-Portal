@@ -25,13 +25,18 @@ return [
     ],
     [
         'router' => 'newAgreement', 
-        'params' => false,
+        'params' => $int,
         'controller' => 'agreements/add'
     ],
     [
         'router' => 'user',
         'params' => $int,
         'controller' => 'users/one'
+    ],
+    [
+        'router' => 'newUser',
+        'params' => $int,
+        'controller' => 'users/add'
     ],
     [
         'router' => 'users', 

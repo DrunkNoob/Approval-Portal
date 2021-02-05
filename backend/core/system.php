@@ -1,6 +1,6 @@
 <?php
 
-function parseRouter(string $router, array $routes, string $params) :array {
+function parseRouter(string $router, array $routes, $params) :array {
     $res = [
         'controller' => 'errors/e404',
         'params' => ''
@@ -16,6 +16,8 @@ function parseRouter(string $router, array $routes, string $params) :array {
                      } else {
                         $res['controller'] = 'errors/e404';
                     }
+                } else if(is_array($params)){
+                    $res['params'] = $params;
                 } else {
                     $res['controller'] = 'errors/e404';
                 }

@@ -2,8 +2,8 @@
 
 include_once('core/db.php');
 
-function access_levelAll() : array{
-    $sql = "SELECT * FROM access_level";
+function accessLevelsAll() : array{
+    $sql = "SELECT * FROM accessLevels";
     $query = dbQuery($sql);
     return $query->fetchAll();
 }

@@ -16,7 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
             $paramsParse = $data['params'];
         }
         $routerRes = parseRouter($data['router'], $routes, $paramsParse);
-
+        // var_dump($routerRes);
         $cname = $routerRes['controller'];
         define('NUM_PARAMS', $routerRes['params']);
         $path = "controllers/$cname.php";

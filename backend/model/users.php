@@ -2,6 +2,17 @@
 
 include_once('core/db.php');
 
+function userMainInfo (int $id_user) {
+    $sql = "SELECT id_acc, departments.department, positions.position 
+    FROM users 
+    LEFT JOIN departments ON users.id_dep = departments.id_dep
+    LEFT JOIN positions ON users.id_pos = positions.id_pos 
+    
+    WHERE id_user=:id_user";
+    $query = dbQuery($sql, ['id_user' => $id_user]);
+    return $query->fetch();
+}
+
 function usersExists(int $id_user) {
     // SELECT COUNT(*) FROM table_name
     $sql = "SELECT EXISTS(SELECT id_user FROM users WHERE id_user=:id_user)";
@@ -29,9 +40,21 @@ function usersOne(int $id) {
     return $query->fetch();
 }
 
-function usersAdd(array $fields) : bool{
-    $sql = "INSERT users (secondname, firstname, patronymic, email, password, id_dep, id_pos, id_acc) VALUES (:secondname, :firstname, :patronymic, :email, :password, :id_dep, :id_pos, :id_acc)";
-    dbQuery($sql, $fields);
+function usersVer(string $email) {
+    $sql = "SELECT id_user, secondname, firstname, patronymic
+    FROM users
+    WHERE email=:email";
+    $query = dbQuery($sql, ['email' => $email]);
+    return $query->fetch();
+}
+
+function usersAdd(array $fields) {
+    $sql = "INSERT 
+    users 
+    (secondname, firstname, patronymic, email, password, id_dep, id_pos, id_acc) 
+    VALUES 
+    (:secondname, :firstname, :patronymic, :email, :password, :id_dep, :id_pos, :id_acc)";
+    $query = dbQuery($sql, $fields);
     return true;
 }
 

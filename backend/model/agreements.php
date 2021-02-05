@@ -58,6 +58,14 @@ function agreementsOne(int $num) : array{
     return $query->fetch();
 }
 
+function agreementsVer(string $num) {
+    $sql = "SELECT id_agr
+    FROM agreements
+    WHERE contract_num=:num";
+    $query = dbQuery($sql, ['num' => $num]);
+    return $query->fetch();
+}
+
 function reviewers(int $num) : array {
     $sql = "SELECT users.id_user, reviewers.status_rev, reviewers.status, reviewers.comment, concat(users.secondname, ' ', users.firstname, ' ', users.patronymic, ' (' , departments.department, '/', positions.position, ')') reviewer
     
@@ -77,7 +85,21 @@ function reviewers(int $num) : array {
 //(select concat(u.secondname, ' ', u.firstname, ' ', u.patronymic) from users u where u.id_user = agreements.creator_agr) reviewer
 // INSERT INTO `agreements` (`id_agr`, `id_typ`, `id_cat`, `price`, `contract_num`, `contract_date`, `contract_sub`, `dep_res`, `contract_own`, `contract_adm`, `inn`, `verification`, `reason_ver`, `id_risk`, `creator_agr`, `creation_date`, `status_agr`) VALUES (NULL, '2', '2', '9000000', '15828244', current_timestamp(), 'Пельмеши рабочим', '1', '6', '2', '7841561', '1', NULL, '2', '5', current_timestamp(), '0');
 function agreementsAdd(array $fields) : bool{
-    $sql = "INSERT agreements (id_typ, id_cat, price, contract_num, contract_date, contract_sub, dep_res, contract_own, contract_adm, inn, verification, reason_ver, id_risk, creator_agr) VALUES (:id_typ, :id_cat, :price, :contract_num, :contract_date, :contract_sub, :dep_res, :contract_own, :contract_adm, :inn, :verification, :reason_ver, :id_risk, :creator_agr)";
+    $sql = "INSERT 
+    agreements 
+    (id_typ, id_cat, price, contract_num, contract_date, contract_sub, dep_res, contract_own, contract_adm, inn, verification, reason_ver, id_risk, creator_agr) 
+    VALUES 
+    (:id_typ, :id_cat, :price, :contract_num, :contract_date, :contract_sub, :dep_res, :contract_own, :contract_adm, :inn, :verification, :reason_ver, :id_risk, :creator_agr)";
+    dbQuery($sql, $fields);
+    return true;
+}
+
+function reviewersAdd(array $fields) : bool{
+    $sql = "INSERT 
+    reviewers 
+    (id_agr, id_user, status) 
+    VALUES 
+    (:id_agr, :id_user, :status)";
     dbQuery($sql, $fields);
     return true;
 }

@@ -51,7 +51,17 @@ export default {
   async usersRoute() {
     document.getElementById('results').innerHTML = await View.render('load')
     // const users = await Model.fetch('users')
-    const users = await Model.toServer({router: 'users'})
+    // const users = await Model.toServer({router: 'users'})
+    const users = await Model.toServer({router: 'newUser', params: {
+      secondname: 'ttt',
+      firstname: 'Артем',
+      patronymic: 'trtrttrrt',
+      email: 'artem@mail.ru',
+      password: '544t45g45g',
+      id_dep: 2,
+      id_pos: 4,
+      id_acc: '1'
+    }})
     usersPage.setData(users)
     usersPage.render(document.getElementById('results'))
     setActiveNavNode(document.querySelector('[data-role=nav-users]'))
@@ -68,8 +78,41 @@ export default {
 
   async newagreementRoute() {
     document.getElementById('results').innerHTML = await View.render('load')
-    const newAgreement = await Model.toServer({router: 'main'})
+    // const newAgreement = await Model.toServer({router: 'main'})
 
+    const newAgreement = await Model.toServer({router: 'newAgreement', params: {
+      agreement: {
+        id_typ: '1',
+        id_cat: '2',
+        price: '5486219',
+        contract_num: '3810466',
+        contract_date: '2020-11-30 21:07:12',
+        contract_sub: 'Мдамкек',
+        dep_res: '2',
+        contract_own: '2',
+        contract_adm: '2',
+        inn: '12548515',
+        verification: true,
+        reason_ver: null,
+        id_risk: '1',
+        creator_agr: '1'
+      },
+      reviewers: [
+        {
+          status: 1,
+          id_user: 1
+        },
+        {
+          status: 1,
+          id_user: 2
+        },
+        {
+          status: 1,
+          id_user: 3
+        }
+      ]
+
+    }})
     newagreementPage.setData(newAgreement)
     newagreementPage.render(document.getElementById('results'))
     setActiveNavNode(document.querySelector('[data-role=nav-newagreement]'))
