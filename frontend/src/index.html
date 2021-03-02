@@ -99,7 +99,7 @@
           </tr> 
         
           <div id="content">
-         {{#each result/agreements}}
+         {{#each result}}
        <tr class="tableSubmit" id="{{contract_num}}"><td>{{contract_num}}</td><td>{{contract_date}}</td><td>{{contract_sub}}</td><td>{{department}}</td><td>{{contract_own}}</td><td>{{contract_adm}}</td><td>{{inn}}</td><td>{{risk}}</td><td>{{status}}</td></tr>
        {{/each}}
        </div>
@@ -375,7 +375,7 @@
           <th>Отдел</th>
           <th>Email</th>
           </tr> <!--ряд с ячейками заголовков-->
-    {{#each result/users}}
+    {{#each result}}
       <tr  class="tableSubmit" id="{{id_user}}">
         <td>{{id_user}}</td>
         <td>{{secondname}} {{firstname}} {{patronymic}}</td>

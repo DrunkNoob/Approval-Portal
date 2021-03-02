@@ -6,6 +6,4 @@ include_once('view.php');
 
     $users = usersAll();
 
-    $q = ['users' => $users];
-
-    outJSON($q, true);
+    outJSON($users, true);

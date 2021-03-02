@@ -18,6 +18,6 @@ include_once('view.php');
         'allAgreements' => $agreementsCount,
     );
 
-    $q['agreements'] = $agreements;
+    $q = $agreements;
 
     outJSON($q, true);

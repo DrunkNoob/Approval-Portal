@@ -67,7 +67,7 @@ function agreementsVer(string $num) {
 }
 
 function reviewers(int $num) : array {
-    $sql = "SELECT users.id_user, reviewers.status_rev, reviewers.status, reviewers.comment, concat(users.secondname, ' ', users.firstname, ' ', users.patronymic, ' (' , departments.department, '/', positions.position, ')') reviewer
+    $sql = "SELECT users.id_user, reviewers.status, reviewers.comment, concat(users.secondname, ' ', users.firstname, ' ', users.patronymic, ' (' , departments.department, '/', positions.position, ')') reviewer
     
 
 

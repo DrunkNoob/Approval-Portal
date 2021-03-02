@@ -1,6 +1,6 @@
 <?php
 
     include_once('view.php');
-    $q = ['error' => 'Ресурс не найден!'];
+    $q = 'Ресурс не найден!';
 
     outJSON($q, false);
